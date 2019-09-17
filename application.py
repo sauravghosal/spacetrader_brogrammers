@@ -1,5 +1,6 @@
 # Check out the link to this Github for more info!
 # https://github.com/RachitBhargava99/Flask-Tutorials
+
 from flask import Flask, render_template, request, redirect, url_for
 from flask_wtf import FlaskForm
 from wtforms import SubmitField
@@ -17,7 +18,7 @@ def home():
         return render_template('home.html', html_form=fl_form)
     
 #try adding '/config' to the url! :)
-@app.route('/config')
+@app.route('/character')
 def config():
     return render_template('config.html')
 
