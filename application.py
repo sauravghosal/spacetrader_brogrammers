@@ -23,7 +23,7 @@ def config():
     return render_template('config.html')
 
 class SubmitForm(FlaskForm):
-    submit = SubmitField("SUBMIT")
+    submit = SubmitField("Let's Start!")
 
 if __name__ == '__main__':
     app.run(debug=True)
