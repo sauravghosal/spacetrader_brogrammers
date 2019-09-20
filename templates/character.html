@@ -2,14 +2,15 @@
 <html>
   <body>
    <div class="character">
-     <label>Enter your character's name!</label>
-     <input id="charName", type="text"></input>
-     <button>Submit</button>
-     <br/>
+      <label>Enter your character's name!</label>
+      <form id="charName" method="POST">
+        {{ html_form.name_field(placeholder="Your character's name") }}
+        {{ html_form.submit() }}
+      </form>
     </div>
      <div>
      <label>Choose the difficulty</label>
-     <form action="">
+     <form action="html_form.post()" method="POST">
       <input type="radio" name="difficulty" value="Easy"> Easy<br>
       <input type="radio" name="difficulty" value="Medium"> Medium<br>
       <input type="radio" name="difficulty" value="Hard"> Hard
@@ -26,3 +27,6 @@
     <input id="engineer_skill", type="text"></input>
   </body>
 </html>
+<script>
+  localStorage.setItem(name, document.getElementById(charName));
+</script>
