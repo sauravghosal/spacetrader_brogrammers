@@ -3,7 +3,7 @@
   <body>
    <div class="character">
       <label>Enter your character's name!</label>
-      <form id="charName" method="POST">
+      <form method="POST">
         {{ html_form.name_field(placeholder="Your character's name") }}
         {{ html_form.submit() }}
       </form>
@@ -27,6 +27,3 @@
     <input id="engineer_skill", type="text"></input>
   </body>
 </html>
-<script>
-  localStorage.setItem(name, document.getElementById(charName));
-</script>
