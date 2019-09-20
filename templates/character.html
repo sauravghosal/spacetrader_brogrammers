@@ -1,32 +1,33 @@
 <!DOCTYPE html>
 <html>
-  <body>
-   <div class="character">
-      <label>Enter your character's name!</label>
-      <form id="charName" method="POST">
-        {{ html_form.name_field(placeholder="Your character's name") }}
+  <link href="StyleSheet.css" rel="stylesheet" type="text/css">
+  <div class="container">
+     <h1>Character Info</h1>
+     <form method="POST" action="">
+        <h3>{{ html_form.name.label }}</h3>
+        <p>{{ html_form.name() }} </p> 
+        <h3>{{ html_form.difficulty.label }}</h3>
+        <p>{{ html_form.difficulty }}</p>
+
+        <!-- Add in here something about the number of points able to be dedicated -->
+        <!-- <button type="button" onclick='document.getElementById("demo").innerHTML = html_form.difficulty.data'>Click Me!</button>
+
+        <p id="demo">Your current points</p> -->
+
+
+        <h3>{{ html_form.pilot.label }}</h3>
+        <p>{{ html_form.pilot() }}</p>
+
+        <h3>{{ html_form.merchant.label }}</h3>
+        <p>{{ html_form.merchant() }}</p>
+
+        <h3>{{ html_form.fighter.label }}</h3>
+        <p>{{ html_form.fighter() }}</p>
+
+        <h3>{{ html_form.engineer.label }}</h3>
+        <p>{{ html_form.engineer() }}</p>
+        
         {{ html_form.submit() }}
-      </form>
-    </div>
-     <div>
-     <label>Choose the difficulty</label>
-     <form action="html_form.post()" method="POST">
-      <input type="radio" name="difficulty" value="Easy"> Easy<br>
-      <input type="radio" name="difficulty" value="Medium"> Medium<br>
-      <input type="radio" name="difficulty" value="Hard"> Hard
     </form>
-    </div>
-    <h1> Skill Points </h1>
-    <label>Pilot</label>
-    <input id="pilot_skill", type="text"></input>
-    <label>Fighter</label>
-    <input id="pilot_skill", type="text"></input>
-    <label>Merchant</label>
-    <input id="merchant_skill", type="text"></input>
-    <label>Engineer</label>
-    <input id="engineer_skill", type="text"></input>
-  </body>
-</html>
-<script>
-  localStorage.setItem(name, document.getElementById(charName));
-</script>
+  </div>
+  </html>
