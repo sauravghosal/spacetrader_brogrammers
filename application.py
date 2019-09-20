@@ -25,19 +25,12 @@ def home():
 def character():
     fl_form = characterForm()
     if fl_form.validate_on_submit():
+        # level = fl_form.difficulty.data 
+        # need to figure out point validation
         return render_template('characterinfo.html', html_form=fl_form)
     else:
         return render_template('character.html', html_form=fl_form)
 
-
-# #try adding '/characterinfo' to the url! :)
-# @app.route('/characterinfo', methods=['GET', 'POST'])
-# def characterinfo():
-#     fl_form = characterFormInfo()
-#     if fl_form.is_submitted():
-#         return redirect(url_for('characterinfo'))
-#     else:
-#         return render_template('characterinfo.html', title="Character Info Page", html_form=fl_form)
 
 if __name__ == '__main__':
     app.run(debug=True)
