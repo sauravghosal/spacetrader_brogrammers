@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <body>
+   <div class="character">
+      <label>Enter your character's name!</label>
+      <form method="POST">
+        {{ html_form.name_field(placeholder="Your character's name") }}
+        {{ html_form.submit() }}
+      </form>
+    </div>
+     <div>
+     <label>Choose the difficulty</label>
+     <form action="html_form.post()" method="POST">
+      <input type="radio" name="difficulty" value="Easy"> Easy<br>
+      <input type="radio" name="difficulty" value="Medium"> Medium<br>
+      <input type="radio" name="difficulty" value="Hard"> Hard
+    </form>
+    </div>
+    <h1> Skill Points </h1>
+    <label>Pilot</label>
+    <input id="pilot_skill", type="text"></input>
+    <label>Fighter</label>
+    <input id="pilot_skill", type="text"></input>
+    <label>Merchant</label>
+    <input id="merchant_skill", type="text"></input>
+    <label>Engineer</label>
+    <input id="engineer_skill", type="text"></input>
+  </body>
+</html>
