@@ -34,8 +34,6 @@ def character():
             maxSkillPoints = 12
         else:
             maxSkillPoints = 8
-        print(int(fl_form.pilot.data))
-        print(fl_form.merchant.data)
         if (int(fl_form.pilot.data) + int(fl_form.merchant.data) + int(fl_form.fighter.data) + int(fl_form.engineer.data) <= maxSkillPoints):
             return render_template('characterinfo.html', html_form=fl_form)
         else:
