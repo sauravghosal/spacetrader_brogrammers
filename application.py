@@ -3,16 +3,19 @@
 
 from flask import Flask, render_template, request, redirect, url_for
 from flask_wtf import FlaskForm
-from wtforms import SubmitField, StringField
+from wtforms import SubmitField, StringField, RadioField
+from forms import characterForm, homePageForm
+from flask_bootstrap import Bootstrap #not needed anymore.. but may be good to keep for later!
 
 app = Flask(__name__)
+Bootstrap(app)
 app.config['WTF_CSRF_ENABLED'] = False
 
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    home_form = homePageForm()
-    if home_form.is_submitted():
+    fl_form = homePageForm()
+    if fl_form.validate_on_submit():
         return redirect(url_for('character'))
     else: 
         return render_template('home.html', html_form=home_form)
@@ -20,33 +23,24 @@ def home():
 #try adding '/character' to the url! :)
 @app.route('/character', methods=['GET', 'POST'])
 def character():
-    character_form = characterForm()
-    if character_form.is_submitted():
-        return redirect(url_for('confirmation'))
+    fl_form = characterForm()
+    if fl_form.validate_on_submit():
+        # level = fl_form.difficulty.data 
+        # need to figure out point validation
+        maxSkillPoints = 0
+        if (fl_form.difficulty.data == "1000"):
+            maxSkillPoints = 16
+        elif (fl_form.difficulty.data == "500"):
+            maxSkillPoints = 12
+        else:
+            maxSkillPoints = 8
+        if (int(fl_form.pilot.data) + int(fl_form.merchant.data) + int(fl_form.fighter.data) + int(fl_form.engineer.data) <= maxSkillPoints):
+            return render_template('characterinfo.html', html_form=fl_form)
+        else:
+            return render_template('character.html', html_form=fl_form)
     else:
         return render_template('character.html', html_form=character_form)
 
-
-#try adding '/characterinfo' to the url! :)
-@app.route('/confirmation', methods=['GET', 'POST'])
-def confirmation():
-    confirmation_form = confirmationForm()
-    if confirmation_form.is_submitted():
-        return redirect(url_for('character'))
-    else:
-        return render_template('confirmation.html', html_form=confirmation_form)
-
-
-class homePageForm(FlaskForm):
-    submit = SubmitField("Let's Start!")
-
-class characterForm(FlaskForm):
-    name_field = StringField('Input')
-    submit = SubmitField("Submit")
-
-class confirmationForm(FlaskForm):
-    name_field = StringField('Input')
-    submit = SubmitField("Submit")
 
 if __name__ == '__main__':
     app.run(debug=True)

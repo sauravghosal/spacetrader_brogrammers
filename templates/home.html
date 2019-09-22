@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
-  <body>
-   <div class="home">
+  <head>
+  <link href="StyleSheet.css" rel="stylesheet" type="text/css">
+  <div class="container">
      <h1>Welcome to Our Game!</h1>
-     <p>This is kinda janky.. but it'll do!</p>
-     <form method="POST">
+     <p>Hit the "Let's go" button below to begin!</p>
+     <form method="POST" action="/">
       {{ html_form.submit() }}
-  </form>
-    </div>
-  </body>
+     </form>
+  </div>
+  </head>
 </html>
