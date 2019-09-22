@@ -6,13 +6,10 @@ class homePageForm(FlaskForm):
     submit = SubmitField("Let's start!")
 
 class characterForm(FlaskForm):
-    difficulty = RadioField('Level of Difficulty', choices=[('16', 'Easy'),('12', 'Medium'),('8', 'Hard')])
+    difficulty = RadioField('Starting Number of Credits', choices=[('1000', 'Easy (16 Skills Point Max)'),('500', 'Medium (12 Skills Point Max)'),('100', 'Hard (8 Skills Point Max)')])
     name = StringField("Your character's name")
     pilot = IntegerField("Pilot Skill Points")
     merchant = IntegerField("Merchant Skill Points")
     fighter = IntegerField("Fighter Skill Points")
     engineer = IntegerField("Engineer Skill Points")
     submit = SubmitField("Submit")
-
-class characterinfoForm(FlaskForm):
-    submit = SubmitField("Let's start!")

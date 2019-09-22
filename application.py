@@ -27,19 +27,21 @@ def character():
     if fl_form.validate_on_submit():
         # level = fl_form.difficulty.data 
         # need to figure out point validation
-        return redirect(url_for('characterinfo'))
+        maxSkillPoints = 0
+        if (fl_form.difficulty.data == "1000"):
+            maxSkillPoints = 16
+        elif (fl_form.difficulty.data == "500"):
+            maxSkillPoints = 12
+        else:
+            maxSkillPoints = 8
+        print(int(fl_form.pilot.data))
+        print(fl_form.merchant.data)
+        if (int(fl_form.pilot.data) + int(fl_form.merchant.data) + int(fl_form.fighter.data) + int(fl_form.engineer.data) <= maxSkillPoints):
+            return render_template('characterinfo.html', html_form=fl_form)
+        else:
+            return render_template('character.html', html_form=fl_form)
     else:
         return render_template('character.html', html_form=fl_form)
-
-@app.route('/characterinfo', methods=['GET', 'POST'])
-def characterinfo():
-    fl_form = characterinfoForm()
-    if fl_form.validate_on_submit():
-        # level = fl_form.difficulty.data 
-        # need to figure out point validation
-        return redirect(url_for('characterinfo'))
-    else:
-        return render_template('characterinfo.html', html_form=fl_form)
 
 
 if __name__ == '__main__':
