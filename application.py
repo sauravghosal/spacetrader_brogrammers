@@ -18,7 +18,7 @@ def home():
     if fl_form.validate_on_submit():
         return redirect(url_for('character'))
     else: 
-        return render_template('home.html', html_form=home_form)
+        return render_template('home.html', html_form=fl_form)
     
 #try adding '/character' to the url! :)
 @app.route('/character', methods=['GET', 'POST'])
@@ -39,7 +39,7 @@ def character():
         else:
             return render_template('character.html', html_form=fl_form)
     else:
-        return render_template('character.html', html_form=character_form)
+        return render_template('character.html', html_form=fl_form)
 
 
 if __name__ == '__main__':
