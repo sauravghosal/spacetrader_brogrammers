@@ -25,11 +25,21 @@ def home():
 def character():
     fl_form = characterForm()
     if fl_form.validate_on_submit():
-        # level = fl_form.difficulty.data 
-        # need to figure out point validation
-        return render_template('characterinfo.html', html_form=fl_form)
+        if (fl_form.difficulty.data == "1000"): # There's probably a better way to validate this.. but for right now, this is good!
+            maxSkillPoints = 16
+            difficulty = 'Easy'
+        elif (fl_form.difficulty.data == "500"):
+            maxSkillPoints = 12
+            difficulty = 'Medium'
+        else:
+            maxSkillPoints = 8
+            difficulty = 'Hard'
+        if (int(fl_form.pilot.data) + int(fl_form.merchant.data) + int(fl_form.fighter.data) + int(fl_form.engineer.data) <= maxSkillPoints and  (str(fl_form.name.data) != "")):
+            return render_template('characterinfo.html', html_form=fl_form, html_difficulty=difficulty)
+        else:
+            return render_template('character.html', html_form=fl_form, html_message='Something is wrong with your submission. Please try again.')
     else:
-        return render_template('character.html', html_form=fl_form)
+        return render_template('character.html', html_form=fl_form, html_message='No errors detected')
 
 
 if __name__ == '__main__':
