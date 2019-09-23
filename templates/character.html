@@ -1,32 +1,40 @@
 <!DOCTYPE html>
 <html>
-  <link href="StyleSheet.css" rel="stylesheet" type="text/css">
-  <div class="container">
-     <h1>Character Info</h1>
-     <form method="POST" action="">
-        <h3>{{ html_form.name.label }}</h3>
-        <p>{{ html_form.name() }} </p> 
-        <h3>{{ html_form.difficulty.checked }}</h3>
-        <p>{{ html_form.difficulty }}</p>
+  <head>
+      <title>Character Customization</title>
+      <style>
+          h1, h2, h3, p {
+             font-family: "Helvetica";
+          }
+       </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Character Customization</h1>
+      <form method="POST" action="">
+          <h3>{{ html_form.name.label }}</h3>
+          <p>{{ html_form.name() }} </p> 
+          <h3> Please select your desired difficulty level </h3>
+          <p>{{ html_form.difficulty() }}</p>
 
-        <!-- Add in here something about the number of points able to be dedicated -->
-        <!-- <button type="button" onclick='document.getElementById("demo").innerHTML = html_form.difficulty.data'>Click Me!</button>
-        <p id="demo">Your current points</p> -->
+          <h2>Skill Point Allocation</h2>
+          <h3>{{ html_form.pilot.label }}</h3>
+          <p>{{ html_form.pilot() }}</p>
 
-        <h2>Skill Point Allocation</h2>
-        <h3>{{ html_form.pilot.label }}</h3>
-        <p>{{ html_form.pilot() }}</p>
+          <h3>{{ html_form.merchant.label }}</h3>
+          <p>{{ html_form.merchant() }}</p>
 
-        <h3>{{ html_form.merchant.label }}</h3>
-        <p>{{ html_form.merchant() }}</p>
+          <h3>{{ html_form.fighter.label }}</h3>
+          <p>{{ html_form.fighter() }}</p>
 
-        <h3>{{ html_form.fighter.label }}</h3>
-        <p>{{ html_form.fighter() }}</p>
+          <h3>{{ html_form.engineer.label }}</h3>
+          <p>{{ html_form.engineer() }}</p>
+          
+          {{ html_form.submit() }}
 
-        <h3>{{ html_form.engineer.label }}</h3>
-        <p>{{ html_form.engineer() }}</p>
-        
-        {{ html_form.submit() }}
-    </form>
-  </div>
-  </html>
+          <!-- This displays the errors that users input.. needs work! -->
+          <h2> <span style=color:crimson> {{html_message}} </span> </h2> 
+      </form>
+    </div>
+  </body>
+</html>

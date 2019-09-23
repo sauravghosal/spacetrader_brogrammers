@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <html>
   <head>
-  <link href="StyleSheet.css" rel="stylesheet" type="text/css">
-  <div class="container">
-     <h1>Welcome to Our Game!</h1>
-     <p>Hit the "Start New Game" button below to begin!</p>
-     <form method="POST" action="/">
-      {{ html_form.submit() }}
-     </form>
-  </div>
-  </head>
+    <!-- Style sheet didn't work so I did inline styling! -->
+      <title>Homepage</title>
+      <style>
+          h1, h2, h3, p {
+              font-family: "Helvetica";
+          }
+      </style>
+  </head>  
+  <body>
+      <div class="container">
+        <h1>Welcome to Our Game!</h1>
+        <p>Hit the "Start New Game" button below to begin!</p>
+        <form method="POST" action="/">
+          {{ html_form.submit() }}
+        </form>
+      </div>
+  </body>
 </html>
