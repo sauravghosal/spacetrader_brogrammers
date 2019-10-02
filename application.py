@@ -4,8 +4,9 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_wtf import FlaskForm
 from wtforms import SubmitField, StringField, RadioField
-from forms import characterForm, homePageForm
-from flask_bootstrap import Bootstrap #not needed anymore.. but may be good to keep for later!
+from forms import homePageForm
+from flask_bootstrap import Bootstrap  #not needed anymore.. but may be good to keep for later!
+from player import Player, playerForm
 
 app = Flask(__name__)
 Bootstrap(app)
@@ -17,29 +18,32 @@ def home():
     fl_form = homePageForm()
     if fl_form.validate_on_submit():
         return redirect(url_for('character'))
-    else: 
+    else:
         return render_template('home.html', html_form=fl_form)
-    
-#try adding '/character' to the url! :)
+
+
 @app.route('/character', methods=['GET', 'POST'])
 def character():
-    fl_form = characterForm()
-    if fl_form.validate_on_submit():
-        if (fl_form.difficulty.data == "1000"): # There's probably a better way to validate this.. but for right now, this is good!
-            maxSkillPoints = 16
-            difficulty = 'Easy'
-        elif (fl_form.difficulty.data == "500"):
-            maxSkillPoints = 12
-            difficulty = 'Medium'
+    fl_form = playerForm()
+    if fl_form.validate_on_submit():  #validate_on_submit is not working...
+        p1 = Player(fl_form.pilot.data, fl_form.merchant.data,
+                    fl_form.fighter.data, fl_form.engineer.data)
+        if ((str(fl_form.name.data) != "")
+                and p1.check_difficulty(fl_form.difficulty.data)):
+            return render_template('characterinfo.html',
+                                   html_form=fl_form,
+                                   html_difficulty=p1.difficulty)
         else:
-            maxSkillPoints = 8
-            difficulty = 'Hard'
-        if (int(fl_form.pilot.data) + int(fl_form.merchant.data) + int(fl_form.fighter.data) + int(fl_form.engineer.data) <= maxSkillPoints and  (str(fl_form.name.data) != "")):
-            return render_template('characterinfo.html', html_form=fl_form, html_difficulty=difficulty)
-        else:
-            return render_template('character.html', html_form=fl_form, html_message='Something is wrong with your submission. Please try again.')
+            # maybe add a flash() functionality here?
+            return render_template(
+                'character.html',
+                html_form=fl_form,
+                html_message=
+                'Something is wrong with your submission. Please try again.')
     else:
-        return render_template('character.html', html_form=fl_form, html_message='No errors detected')
+        return render_template('character.html',
+                               html_form=fl_form,
+                               html_message='No errors detected')
 
 
 if __name__ == '__main__':
