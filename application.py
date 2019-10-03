@@ -26,8 +26,8 @@ def home():
 def character():
     fl_form = playerForm()
     if fl_form.validate_on_submit():  #validate_on_submit is not working...
-        p1 = GamePlayer(fl_form.pilot.data, fl_form.merchant.data,
-                        fl_form.fighter.data, fl_form.engineer.data)
+        p1 = Player(fl_form.pilot.data, fl_form.merchant.data,
+                        fl_form.fighter.data, fl_form.engineer.data))
         if ((str(fl_form.name.data) != "")
                 and p1.check_difficulty(fl_form.difficulty.data)):
             return render_template('characterinfo.html',
