@@ -25,14 +25,27 @@ def home():
 @app.route('/character', methods=['GET', 'POST'])
 def character():
     fl_form = playerForm()
+    game = Game()
     if fl_form.validate_on_submit():  #validate_on_submit is not working...
-        p1 = Player(fl_form.pilot.data, fl_form.merchant.data,
-                        fl_form.fighter.data, fl_form.engineer.data))
-        if ((str(fl_form.name.data) != "")
-                and p1.check_difficulty(fl_form.difficulty.data)):
+        if (str(fl_form.name.data) != ""):
+            if (fl_form.difficulty.data == "1000"):
+                game.startGame(
+                    Player(fl_form.pilot.data, fl_form.merchant.data,
+                           fl_form.fighter.data, fl_form.engineer.data,
+                           int(fl_form.difficulty.data), 16), 'Easy')
+            elif (fl_form.difficulty.data == "500"):
+                game.startGame(
+                    Player(fl_form.pilot.data, fl_form.merchant.data,
+                           fl_form.fighter.data, fl_form.engineer.data,
+                           int(fl_form.difficulty.data), 12), 'Medium')
+            else:
+                game.startGame(
+                    Player(fl_form.pilot.data, fl_form.merchant.data,
+                           fl_form.fighter.data, fl_form.engineer.data,
+                           int(fl_form.difficulty.data), 8), 'Hard')
             return render_template('characterinfo.html',
                                    html_form=fl_form,
-                                   html_difficulty=p1.difficulty)
+                                   html_difficulty=game.difficulty)
         else:
             # maybe add a flash() functionality here?
             return render_template(
