@@ -12,7 +12,7 @@ class Player:
     current_region = None
     credits = 0
     max_skill_points = 0
-    difficulty = None
+    skill_level = 0
 
     def __init__(self, pilot, merchant, fighter, engineer):
         self.pilot = pilot
@@ -23,19 +23,19 @@ class Player:
 
     def check_difficulty(self, credits):
         if (credits == "1000"):
-            max_skill_points = 16
+            self.skill_level = 16
             difficulty = 'Easy'
         elif (credits == "500"):
-            max_skill_points = 12
+            self.skill_level = 12
             difficulty = 'Medium'
         else:
-            max_skill_points = 8
+            self.skill_level = 8
             difficulty = 'Hard'
 
         if (self.pilot + self.merchant + self.fighter + self.engineer <=
-                max_skill_points):
+                self.skill_level):
             self.credits = int(credits)
-            self.max_skill_points = max_skill_points
+            self.max_skill_points = self.skill_level
             self.difficulty = difficulty
             return True
         else:
