@@ -4,9 +4,9 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_wtf import FlaskForm
 from wtforms import SubmitField, StringField, RadioField
-from forms import homePageForm
+from Game import homePageForm, Game
 from flask_bootstrap import Bootstrap  #not needed anymore.. but may be good to keep for later!
-from player import Player, playerForm
+from Player import Player, playerForm
 
 app = Flask(__name__)
 Bootstrap(app)
@@ -27,7 +27,7 @@ def character():
     fl_form = playerForm()
     if fl_form.validate_on_submit():  #validate_on_submit is not working...
         p1 = Player(fl_form.pilot.data, fl_form.merchant.data,
-                    fl_form.fighter.data, fl_form.engineer.data)
+                        fl_form.fighter.data, fl_form.engineer.data))
         if ((str(fl_form.name.data) != "")
                 and p1.check_difficulty(fl_form.difficulty.data)):
             return render_template('characterinfo.html',
@@ -44,6 +44,11 @@ def character():
         return render_template('character.html',
                                html_form=fl_form,
                                html_message='No errors detected')
+
+
+@app.route('/regions', methods=['GET', 'POST'])
+def regions():
+    return render_template(regions, regions_form)
 
 
 if __name__ == '__main__':
