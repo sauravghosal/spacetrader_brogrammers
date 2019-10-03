@@ -14,12 +14,14 @@ class Player:
     max_skill_points = 0
     skill_level = 0
 
-    def __init__(self, pilot, merchant, fighter, engineer):
+    def __init__(self, pilot, merchant, fighter, engineer, credits,
+                 skill_level):
         self.pilot = pilot
         self.merchant = merchant
         self.fighter = fighter
         self.engineer = engineer
         self.credits = credits
+        self.skill_level = skill_level
 
     def check_difficulty(self, credits):
         if (credits == "1000"):

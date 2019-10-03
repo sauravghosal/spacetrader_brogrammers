@@ -13,7 +13,8 @@ class Game:
     def startGame(self, player, difficulty):
         self.difficulty = difficulty
         self.player = Player(player.pilot, player.merchant, player.fighter,
-                             player.engineer)
+                             player.engineer, player.credits,
+                             player.skill_level)
         self.universe = Universe(
             ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'], [])
         self.curr_region = self.universe.pick_random_region
