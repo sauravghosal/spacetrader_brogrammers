@@ -1,20 +1,29 @@
 <!DOCTYPE html>
-<html>
-  <head>
-  <link href="StyleSheet.css" rel="stylesheet" type="text/css">
-  <div class="container">
-     <h1>Your Information</h1>
-     <form method="POST" action="/">
-        <h2> {{ html_form.name.label }} </h2>
-        <p> {{ html_form.name.data }} </p>
-        <p> {{ html_form.difficulty.label }}: {{ html_form.difficulty.data }} </p>
+<html lang = "en-US">
+   <head>
+      <meta charset = "UTF-8">
+      <title>Player Info</title>
+      <style>
+         h1, h2, p {
+            font-family: "Helvetica";
+            padding:5px
+         }
+      </style>
+   </head>
+   <body>
+      <div class="container">
+         <h1>Player Information</h1>
+         <form method="POST" action="/">
+            <p> Character Name: {{ html_form.name.data }} </p>
+            <p> {{ html_form.difficulty.label }}: {{ html_form.difficulty.data }} </p>
+            <p> Difficulty: {{ html_difficulty }}</p>
 
-        <h2> Skill Points <h2> 
-        <p> {{ html_form.pilot.label }}: {{ html_form.pilot.data }} </p>
-        <p> {{ html_form.merchant.label }}: {{ html_form.merchant.data }} </p>
-        <p> {{ html_form.fighter.label }}: {{ html_form.fighter.data }} </p>
-        <p> {{ html_form.engineer.label }}: {{ html_form.engineer.data }} </p>
-     </form>
-  </div>
-  </head>
+            <h2> Skill Points </h2> 
+            <p> {{ html_form.pilot.label }}: {{ html_form.pilot.data }} </p>
+            <p> {{ html_form.merchant.label }}: {{ html_form.merchant.data }} </p>
+            <p> {{ html_form.fighter.label }}: {{ html_form.fighter.data }} </p>
+            <p> {{ html_form.engineer.label }}: {{ html_form.engineer.data }} </p>
+         </form>
+      </div>
+   </body>
 </html>
