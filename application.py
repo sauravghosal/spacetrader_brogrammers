@@ -78,8 +78,6 @@ def characterinfo():
 
 @app.route('/regions', methods=['GET', 'POST'])
 def regions():
-    regionsButton = request.form['regions']
-    print(regionsButton)
     fl_form = UniverseForm()
     # if fl_form.validate_on_submit():
     #     return redirect(url_for('characterinfo'))
