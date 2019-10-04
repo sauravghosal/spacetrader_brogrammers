@@ -27,7 +27,7 @@ class Universe():  #params list of Regions
 
     def pick_random_region(self):
         return self.regions[random.randint(0, 9)]
-    
+
     def find_region(self, index):
         return self.regions[index]
 
@@ -41,5 +41,4 @@ class Universe():  #params list of Regions
 
 # Add functionality here
 class UniverseForm(FlaskForm):
-    submit = SubmitField("Check out other regions")
-    string = StringField("Values here")
+    submit = SubmitField("Let's travel!")
