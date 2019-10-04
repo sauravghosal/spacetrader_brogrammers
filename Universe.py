@@ -15,17 +15,21 @@ class Universe():  #params list of Regions
         self.regionNames = regionNames
         coordsList = []
         self.regions = regions
-        for i in regionNames:
+        for i in range(0, len(regionNames)):
             coords = (5 * random.randint(-40, 40), 5 * random.randint(-40, 40))
             while coords in coordsList:
                 coords = (5 * random.randint(-40, 40),
                           5 * random.randint(-40, 40))
             coordsList.append(coords)
             techLevel = TechLevel.TechLevel(random.randint(0, 6))
-            regions.append(Region(coords[0], coords[1], techLevel, i))
+            regions.append(
+                Region(coords[0], coords[1], techLevel, regionNames[i], i))
 
     def pick_random_region(self):
         return self.regions[random.randint(0, 9)]
+    
+    def find_region(self, index):
+        return self.regions[index]
 
     # Prints all regions inside universe
     def __str__(self):
