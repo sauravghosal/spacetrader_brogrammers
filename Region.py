@@ -13,7 +13,3 @@ class Region():
 
     def __str__(self):
         return f'Location: ({self.x}, {self.y}), Name: {self.name}, TechLevel: {self.techLevel}'
-
-
-class RegionForm(FlaskForm):
-    submit = SubmitField("Check out regions")
