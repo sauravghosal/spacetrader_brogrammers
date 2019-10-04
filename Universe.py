@@ -26,3 +26,15 @@ class Universe():  #params list of Regions
 
     def pick_random_region(self):
         return self.regions[random.randint(0, 9)]
+
+    # Prints all regions inside universe
+    def __str__(self):
+        ans = ""
+        for i in range(0, len(self.regions)):
+            ans += "Region " + str(i) + " " + str(self.regions[i])
+        return ans
+
+
+# Add functionality here
+class UniverseForm(FlaskForm):
+    string = StringField("Values here")

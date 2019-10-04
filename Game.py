@@ -14,10 +14,10 @@ class Game:
         self.difficulty = difficulty
         self.player = Player(player.pilot, player.merchant, player.fighter,
                              player.engineer, player.credits,
-                             player.skill_level)
+                             player.skill_level, player.name)
         self.universe = Universe(
             ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'], [])
-        self.curr_region = self.universe.pick_random_region
+        self.curr_region = self.universe.pick_random_region()
 
 
 class homePageForm(FlaskForm):
