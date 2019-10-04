@@ -15,6 +15,15 @@
   <body>
     <div class="container">
       <h1>Regions Page</h1>
+      <!-- <p>{{ game.universe.regions }}</p> -->
+      <form>
+      <ul>
+        {% for region in game.universe.regions %}
+        <input type="radio" name="regions" id=region.name value=region.name> {{ region }} 
+          --- DISTANCE TO REGION: {{ (((game.curr_region.x - region.x) ** 2 + (game.curr_region.y - region.y) ** 2) ** 0.5) |round(3) }} <br>
+        <!-- <li>{{ region }}</li> -->
+        {% endfor %}
+      </ul>
       </form>
     </div>
   </body>

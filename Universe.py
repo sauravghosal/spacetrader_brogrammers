@@ -38,3 +38,4 @@ class Universe():  #params list of Regions
 # Add functionality here
 class UniverseForm(FlaskForm):
     string = StringField("Values here")
+    submit = SubmitField("Check out regions")

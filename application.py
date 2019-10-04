@@ -7,7 +7,6 @@ from wtforms import SubmitField, StringField, RadioField
 from Game import homePageForm, Game
 from flask_bootstrap import Bootstrap  #not needed anymore.. but may be good to keep for later!
 from Player import Player, playerForm
-from Region import Region, RegionForm
 from Universe import UniverseForm
 
 app = Flask(__name__)
@@ -68,7 +67,7 @@ def character():
 
 @app.route('/characterinfo', methods=['GET', 'POST'])
 def characterinfo():
-    fl_form = RegionForm()
+    fl_form = UniverseForm()
     if fl_form.validate_on_submit():
         return redirect(url_for('regions'))
     else:
@@ -79,8 +78,13 @@ def characterinfo():
 
 @app.route('/regions', methods=['GET', 'POST'])
 def regions():
+    regionsButton = request.form['regions']
+    print(regionsButton)
     fl_form = UniverseForm()
-    return render_template('regions.html', game=game, html_form=fl_form)
+    # if fl_form.validate_on_submit():
+    #     return redirect(url_for('characterinfo'))
+    # else:
+    return render_template('regions.html', game=game)
 
 
 if __name__ == '__main__':
