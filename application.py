@@ -64,6 +64,8 @@ def character():
 
 
 # Redirection for region page still needs to be implemented
+
+
 @app.route('/characterinfo', methods=['GET', 'POST'])
 def characterinfo():
     fl_form = RegionForm()
