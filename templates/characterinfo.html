@@ -1,29 +1,34 @@
 <!DOCTYPE html>
-<html lang = "en-US">
-   <head>
-      <meta charset = "UTF-8">
-      <title>Player Info</title>
-      <style>
-         h1, h2, p {
-            font-family: "Helvetica";
-            padding:5px
-         }
-      </style>
-   </head>
-   <body>
-      <div class="container">
-         <h1>Player Information</h1>
-         <form method="POST" action="/">
-            <p> Character Name: {{ html_form.name.data }} </p>
-            <p> {{ html_form.difficulty.label }}: {{ html_form.difficulty.data }} </p>
-            <p> Difficulty: {{ html_difficulty }}</p>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Player Info</title>
+    <style>
+      h1,
+      h2,
+      p {
+        font-family: "Helvetica";
+        padding: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Player Information</h1>
+      <form method="POST" action="/">
+        <p>Character Name: {{ game.player.name }}</p>
+        <p>Difficulty: {{ game.difficulty }}</p>
 
-            <h2> Skill Points </h2> 
-            <p> {{ html_form.pilot.label }}: {{ html_form.pilot.data }} </p>
-            <p> {{ html_form.merchant.label }}: {{ html_form.merchant.data }} </p>
-            <p> {{ html_form.fighter.label }}: {{ html_form.fighter.data }} </p>
-            <p> {{ html_form.engineer.label }}: {{ html_form.engineer.data }} </p>
-         </form>
-      </div>
-   </body>
+        <h2>Skill Points</h2>
+        <p>Pilot points: {{ game.player.pilot }}</p>
+        <p>Merchant points : {{ game.player.merchant }}</p>
+        <p>Fighter points : {{ game.player.fighter }}</p>
+        <p>Engineer points : {{ game.player.engineer }}</p>
+        <p>Current Region: {{ game.curr_region }}</p>
+      </form>
+      <form method="POST" action="/">
+        {{ html_form.submit() }}
+      </form>
+    </div>
+  </body>
 </html>

@@ -7,10 +7,15 @@ from wtforms import SubmitField, StringField, RadioField
 from Game import homePageForm, Game
 from flask_bootstrap import Bootstrap  #not needed anymore.. but may be good to keep for later!
 from Player import Player, playerForm
+from Region import Region, RegionForm
+from Universe import UniverseForm
 
 app = Flask(__name__)
 Bootstrap(app)
 app.config['WTF_CSRF_ENABLED'] = False
+
+# Game object - everything is in this object
+game = Game()
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -25,29 +30,28 @@ def home():
 @app.route('/character', methods=['GET', 'POST'])
 def character():
     fl_form = playerForm()
-    game = Game()
-    if fl_form.validate_on_submit():  #validate_on_submit is not working...
+    if fl_form.validate_on_submit():
         if (str(fl_form.name.data) != ""):
             if (fl_form.difficulty.data == "1000"):
                 game.startGame(
                     Player(fl_form.pilot.data, fl_form.merchant.data,
                            fl_form.fighter.data, fl_form.engineer.data,
-                           int(fl_form.difficulty.data), 16), 'Easy')
+                           int(fl_form.difficulty.data), 16,
+                           fl_form.name.data), 'Easy')
             elif (fl_form.difficulty.data == "500"):
                 game.startGame(
                     Player(fl_form.pilot.data, fl_form.merchant.data,
                            fl_form.fighter.data, fl_form.engineer.data,
-                           int(fl_form.difficulty.data), 12), 'Medium')
+                           int(fl_form.difficulty.data), 12,
+                           fl_form.name.data), 'Medium')
             else:
                 game.startGame(
                     Player(fl_form.pilot.data, fl_form.merchant.data,
                            fl_form.fighter.data, fl_form.engineer.data,
-                           int(fl_form.difficulty.data), 8), 'Hard')
-            return render_template('characterinfo.html',
-                                   html_form=fl_form,
-                                   html_difficulty=game.difficulty)
+                           int(fl_form.difficulty.data), 8, fl_form.name.data),
+                    'Hard')
+            return redirect(url_for('characterinfo'))
         else:
-            # maybe add a flash() functionality here?
             return render_template(
                 'character.html',
                 html_form=fl_form,
@@ -59,9 +63,24 @@ def character():
                                html_message='No errors detected')
 
 
+# Redirection for region page still needs to be implemented
+
+
+@app.route('/characterinfo', methods=['GET', 'POST'])
+def characterinfo():
+    fl_form = RegionForm()
+    if fl_form.validate_on_submit():
+        return redirect(url_for('regions'))
+    else:
+        return render_template('characterinfo.html',
+                               game=game,
+                               html_form=fl_form)
+
+
 @app.route('/regions', methods=['GET', 'POST'])
 def regions():
-    return render_template(regions, regions_form)
+    fl_form = UniverseForm()
+    return render_template('regions.html', game=game, html_form=fl_form)
 
 
 if __name__ == '__main__':
