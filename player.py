@@ -10,16 +10,18 @@ from flask_bootstrap import Bootstrap  #not needed anymore.. but may be good to 
 class Player:
     #Instance variables
     current_region = None
+    skill_level = 0
 
-    def __init__(self, pilot, merchant, fighter, engineer, credits,
-                 skill_level, name):
+    def __init__(self, pilot, merchant, fighter, engineer, credits, name):
         self.pilot = pilot
         self.merchant = merchant
         self.fighter = fighter
         self.engineer = engineer
         self.credits = credits
-        self.skill_level = skill_level
         self.name = name
+
+    def checkPoints(self):
+        return self.pilot + self.merchant + self.fighter + self.engineer <= self.skill_level
 
     # Setting the current Region (travel feature) - can just do p1.current_region = {new region}
 
