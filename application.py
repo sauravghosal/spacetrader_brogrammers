@@ -51,7 +51,7 @@ def character():
                     'character.html',
                     html_form=fl_form,
                     html_message=
-                    'Something is wrong with your submission. Please try again.'
+                    'Something is wrong with your entry. Please try again.'
                 )
     else:
         return render_template('character.html',
