@@ -1,16 +1,22 @@
+""" This stores all information needed for the Game -
+the Player, Difficulty, Universe, and Current Region"""
+
 from flask_wtf import FlaskForm
-from wtforms import SubmitField, StringField, RadioField, IntegerField, validators
-from wtforms.validators import InputRequired
-from flask_bootstrap import Bootstrap  #not needed anymore.. but may be good to keep for later!
-from Player import Player
+from wtforms import SubmitField
 from Universe import Universe
 
 
 class Game:
+    """ The game class containing Player, Difficulty, Universe, and Current Region """
     def __init__(self):
         pass
 
-    def startGame(self, player, difficulty):
+    def start_game(self, player, difficulty):
+        """Starts the game and instantiates all objects/attributes             
+        Keyword arguments:
+        player -- the player that's added to the game
+        difficulty -- the game's difficulty
+        """
         self.difficulty = difficulty
         self.player = player
         self.universe = Universe(
@@ -18,5 +24,6 @@ class Game:
         self.curr_region = self.universe.pick_random_region()
 
 
-class homePageForm(FlaskForm):
+class HomePageForm(FlaskForm):
+    """ The form for the landing page """
     submit = SubmitField("Start New Game!")

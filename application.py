@@ -2,7 +2,7 @@
 
 from flask import Flask, render_template, request, redirect, url_for
 from flask_bootstrap import Bootstrap  #not needed anymore.. but may be good to keep for later!
-from Game import homePageForm, Game
+from Game import HomePageForm, Game
 from Player import Player, playerForm
 from Universe import UniverseForm
 
@@ -18,7 +18,7 @@ GAME = Game()
 def home():
     """ Displays home page with button to begin the Game """
 
-    fl_form = homePageForm()
+    fl_form = HomePageForm()
     if fl_form.validate_on_submit():
         return redirect(url_for('character'))
     return render_template('home.html', html_form=fl_form)
@@ -36,24 +36,26 @@ def character():
                               int(fl_form.difficulty.data), fl_form.name.data)
             if fl_form.difficulty.data == "1000":
                 player_1.skill_level = 16
-                GAME.startGame(player_1, 'Easy')
+                GAME.start_game(player_1, 'Easy')
             elif fl_form.difficulty.data == "500":
                 player_1.skill_level = 12
-                GAME.startGame(player_1, 'Medium')
+                GAME.start_game(player_1, 'Medium')
             else:
                 player_1.skill_level = 8
-                GAME.startGame(player_1, 'Hard')
+                GAME.start_game(player_1, 'Hard')
 
             if GAME.player.checkPoints():
                 return redirect(url_for('characterinfo'))
-            return render_template(
-                'character.html',
-                html_form=fl_form,
-                html_message=
-                'Something is wrong with your submission. Please try again.')
-    return render_template('character.html',
-                           html_form=fl_form,
-                           html_message='No errors detected')
+            else:
+                return render_template(
+                    'character.html',
+                    html_form=fl_form,
+                    html_message=
+                    'Something is wrong with your entry. Please try again.')
+    else:
+        return render_template('character.html',
+                               html_form=fl_form,
+                               html_message='No errors detected')
 
 
 @APP.route('/characterinfo', methods=['GET', 'POST'])
