@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "/Users/anayapatel/Desktop/spacetrader_brogrammers/venv/bin/python3",
+    "python.pythonPath": "C:\\Users\\saura\\AppData\\Local\\Programs\\Python\\Python37-32\\python.exe",
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true,
     "python.formatting.provider": "yapf",
