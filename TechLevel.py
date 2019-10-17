@@ -1,4 +1,6 @@
 from enum import Enum
+
+
 class TechLevel(Enum):
     PRE_AG = 0
     AGRICULTURE = 1
