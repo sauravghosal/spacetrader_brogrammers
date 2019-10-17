@@ -31,31 +31,28 @@ def character():
     fl_form = playerForm()
     if fl_form.validate_on_submit():
         if (str(fl_form.name.data) != ""):
+            p1 = Player(fl_form.pilot.data, fl_form.merchant.data,
+                        fl_form.fighter.data, fl_form.engineer.data,
+                        int(fl_form.difficulty.data), fl_form.name.data)
             if (fl_form.difficulty.data == "1000"):
-                game.startGame(
-                    Player(fl_form.pilot.data, fl_form.merchant.data,
-                           fl_form.fighter.data, fl_form.engineer.data,
-                           int(fl_form.difficulty.data), 16,
-                           fl_form.name.data), 'Easy')
+                p1.skill_level = 16
+                game.startGame(p1, 'Easy')
             elif (fl_form.difficulty.data == "500"):
-                game.startGame(
-                    Player(fl_form.pilot.data, fl_form.merchant.data,
-                           fl_form.fighter.data, fl_form.engineer.data,
-                           int(fl_form.difficulty.data), 12,
-                           fl_form.name.data), 'Medium')
+                p1.skill_level = 12
+                game.startGame(p1, 'Medium')
             else:
-                game.startGame(
-                    Player(fl_form.pilot.data, fl_form.merchant.data,
-                           fl_form.fighter.data, fl_form.engineer.data,
-                           int(fl_form.difficulty.data), 8, fl_form.name.data),
-                    'Hard')
-            return redirect(url_for('characterinfo'))
-        else:
-            return render_template(
-                'character.html',
-                html_form=fl_form,
-                html_message=
-                'Something is wrong with your submission. Please try again.')
+                p1.skill_level = 8
+                game.startGame(p1, 'Hard')
+
+            if (game.player.checkPoints()):
+                return redirect(url_for('characterinfo'))
+            else:
+                return render_template(
+                    'character.html',
+                    html_form=fl_form,
+                    html_message=
+                    'Something is wrong with your submission. Please try again.'
+                )
     else:
         return render_template('character.html',
                                html_form=fl_form,
