@@ -1,10 +1,8 @@
 # spacetrader_brogrammers
 The Brogrammers code up a Space Traderz game in Python Flask!
-PS: I updated some stuff - Saurav :)
 
-Current progress: We have a home page that redirects to a character page, which will then redirect to the confirmation page
-
-To-do: 
-1. Skills points functionality on the character page
-2. Displaying everything from the character page on the confirmation page
-
+What we've done: 
+1. Home page with button
+2. Character page where you can customize
+3. Display page showing all customizations with button to change region
+4. Region page with radiobuttons to 'travel' to another region
