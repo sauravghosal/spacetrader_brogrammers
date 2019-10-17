@@ -26,12 +26,44 @@
             region
           }}
           --- DISTANCE TO REGION:
-          {{ (((game.curr_region.x - region.x) ** 2 + (game.curr_region.y - region.y) ** 2) ** 0.5) |round(3) }}
+          {{ (((game.curr_region.x_coord - region.x_coord) ** 2 + (game.curr_region.y_coord - region.y_coord) ** 2) ** 0.5) |round(3) }}
           <br />
           {% endfor %}
-          <input type="submit" ></input>
+          <input type="submit" value="Travel"></input>
         </ul>
       </form>
     </div>
+    <h3> Current Fuel: {{ game.player.ship.current_fuel }} </h3>  
+    <h3> Current Credits: {{ game.player.credits }} </h3>  
+    <form method="POST">
+      <ul>
+        {% for key in game.curr_region.market.keys() %}
+        <input
+          type="radio"
+          name="market"
+          value="{{key}}"
+        />
+        {{
+          key
+        }} | 
+        price: {{ game.curr_region.market.get(key) }}
+        <br />
+        {% endfor %}
+        <input type="submit" value="Buy"></input>
+      </ul>
+    </form>
+
+    <h3> Current Inventory: </h3>
+
+    <form method="POST">
+      <ul>
+        {% for item in game.player.ship.inventory %}
+        <li>
+          {{ item }}
+        </li>
+        {% endfor %}
+      </ul>
+    </form>
+    <h3 style=color:crimson> Error: {{ error }} </h3>
   </body>
 </html>

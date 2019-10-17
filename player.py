@@ -3,6 +3,7 @@
 
 from flask_wtf import FlaskForm
 from wtforms import SubmitField, StringField, RadioField, IntegerField
+from Ship import Ship
 
 
 class Player:
@@ -16,6 +17,7 @@ class Player:
         self.engineer = engineer
         self.credits = credits
         self.name = name
+        self.ship = Ship()
 
     def checkPoints(self):
         return self.pilot + self.merchant + self.fighter + self.engineer <= self.skill_level
