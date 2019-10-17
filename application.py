@@ -1,7 +1,7 @@
 """ This file contains the page redirection and some of the back-end logic for our game! """
 
 from flask import Flask, render_template, request, redirect, url_for
-from flask_bootstrap import Bootstrap  #not needed anymore.. but may be good to keep for later!
+from flask_bootstrap import Bootstrap
 from Game import HomePageForm, Game
 from Player import Player, PlayerForm
 from Universe import UniverseForm
