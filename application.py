@@ -78,8 +78,18 @@ def regions():
         if GAME.travel(new_region):
             return redirect(url_for('characterinfo'))
         else:
-            return render_template('regions.html', game=GAME, error="You don't have enough fuel to travel!")
-    return render_template('regions.html', game=GAME)
+            return render_template(
+                'regions.html',
+                game=GAME,
+                error="You don't have enough fuel to travel!")
+    elif request.method == 'POST' and request.form.get('market') is not None:
+        item_key = request.form.get('market')
+        if not GAME.buy(item_key):
+            return render_template(
+                'regions.html',
+                game=GAME,
+                error="You don't have enough inventory to hold that shit.")
+    return render_template('regions.html', game=GAME, error="None")
 
 
 if __name__ == '__main__':
