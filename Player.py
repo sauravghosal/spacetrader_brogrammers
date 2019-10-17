@@ -16,6 +16,7 @@ class Player:
         self.engineer = engineer
         self.credits = credits
         self.name = name
+        self.ship = Ship()
 
     def checkPoints(self):
         return self.pilot + self.merchant + self.fighter + self.engineer <= self.skill_level
