@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <title>Character Customization</title>
+      <style>
+          h1, h2, h3, p {
+             font-family: "Helvetica";
+          }
+       </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Character Customization</h1>
+      <form method="POST" action="">
+          <h3>{{ html_form.name.label }}</h3>
+          <p>{{ html_form.name() }} </p> 
+          <h3> Please select your desired difficulty level </h3>
+          <p>{{ html_form.difficulty() }}</p>
+
+          <h2>Skill Point Allocation</h2>
+          <h3>{{ html_form.pilot.label }}</h3>
+          <p>{{ html_form.pilot() }}</p>
+
+          <h3>{{ html_form.merchant.label }}</h3>
+          <p>{{ html_form.merchant() }}</p>
+
+          <h3>{{ html_form.fighter.label }}</h3>
+          <p>{{ html_form.fighter() }}</p>
+
+          <h3>{{ html_form.engineer.label }}</h3>
+          <p>{{ html_form.engineer() }}</p>
+        
+          {{ html_form.submit() }}
+        <h2> <span style=color:crimson> {{html_message}} </span> </h2> 
+    </form>
+  </div>
+  </html>
+

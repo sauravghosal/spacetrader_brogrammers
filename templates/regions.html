@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Regions</title>
+    <style>
+      h1,
+      h2,
+      h3,
+      p {
+        font-family: "Helvetica";
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Potential Regions</h1>
+      <form method="POST">
+        <ul>
+          {% for region in game.universe.regions %}
+          <input
+            type="radio"
+            name="regions"
+            value="{{region.number}}"
+          />
+          {{
+            region
+          }}
+          --- DISTANCE TO REGION:
+          {{ (((game.curr_region.x - region.x) ** 2 + (game.curr_region.y - region.y) ** 2) ** 0.5) |round(3) }}
+          <br />
+          {% endfor %}
+          <input type="submit" ></input>
+        </ul>
+      </form>
+    </div>
+  </body>
+</html>
