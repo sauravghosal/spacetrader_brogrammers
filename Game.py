@@ -12,8 +12,8 @@ class Game:
         pass
 
     def start_game(self, player, difficulty):
-        """Starts the game and instantiates all objects/attributes             
-        Keyword arguments:
+        """Starts the game and instantiates all objects/attributes
+        Keyword arguments:F
         player -- the player that's added to the game
         difficulty -- the game's difficulty
         """
