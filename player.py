@@ -7,7 +7,6 @@ from wtforms import SubmitField, StringField, RadioField, IntegerField
 
 class Player:
     #Instance variables
-    current_region = None
     skill_level = 0
 
     def __init__(self, pilot, merchant, fighter, engineer, credits, name):

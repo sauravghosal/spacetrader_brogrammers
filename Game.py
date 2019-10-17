@@ -21,7 +21,12 @@ class Game:
         self.player = player
         self.universe = Universe(
             ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'], [])
-        self.curr_region = self.universe.pick_random_region()
+        self.curr_region = self.universe.pick_random_region() # this could be moved over to player class
+        
+        
+    def travel(self, region):
+        distance = (self.curr_region.x - region.x)**2 + (self.curr_region.y - region.y)**2)**(1/2)
+        self.curr_region = region
 
 
 class HomePageForm(FlaskForm):
