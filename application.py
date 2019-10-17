@@ -1,7 +1,7 @@
 """ This file contains the page redirection and some of the back-end logic for our game! """
 
 from flask import Flask, render_template, request, redirect, url_for
-from flask_bootstrap import Bootstrap
+from flask_bootstrap import Bootstrap  #not needed anymore.. but may be good to keep for later!
 from Game import HomePageForm, Game
 from Player import Player, PlayerForm
 from Universe import UniverseForm
@@ -74,22 +74,15 @@ def regions():
 
     if request.method == 'POST' and request.form.get('regions') is not None:
         new_region_index = request.form.get('regions')
-        new_region = GAME.universe.find_region(int(new_region_index))
-        if GAME.travel(new_region):
-            return redirect(url_for('characterinfo'))
+        GAME.curr_region = GAME.universe.find_region(int(new_region_index))
+        return redirect(url_for('characterinfo'))
         else:
             return render_template(
                 'regions.html',
                 game=GAME,
-                error="You don't have enough fuel to travel!")
-    elif request.method == 'POST' and request.form.get('market') is not None:
-        item_key = request.form.get('market')
-        if not GAME.buy(item_key):
-            return render_template(
-                'regions.html',
-                game=GAME,
-                error="You don't have enough inventory to hold that shit.")
-    return render_template('regions.html', game=GAME, error="None")
+                error="You don't have enough fuel to travel to " +
+                str(new_region))
+    return render_template('regions.html', game=GAME)
 
 
 if __name__ == '__main__':
