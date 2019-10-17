@@ -3,7 +3,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_bootstrap import Bootstrap  #not needed anymore.. but may be good to keep for later!
 from Game import HomePageForm, Game
-from Player import Player, playerForm
+from Player import Player, PlayerForm
 from Universe import UniverseForm
 
 APP = Flask(__name__)
@@ -28,7 +28,7 @@ def home():
 def character():
     """ Displays page for user to customize character and starts a new Game with provided inputs """
 
-    fl_form = playerForm()
+    fl_form = PlayerForm()
     if fl_form.validate_on_submit():
         if str(fl_form.name.data) != "":
             player_1 = Player(fl_form.pilot.data, fl_form.merchant.data,

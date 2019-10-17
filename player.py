@@ -2,9 +2,7 @@
 # into individual files
 
 from flask_wtf import FlaskForm
-from wtforms import SubmitField, StringField, RadioField, IntegerField, validators
-from wtforms.validators import InputRequired
-from flask_bootstrap import Bootstrap  #not needed anymore.. but may be good to keep for later!
+from wtforms import SubmitField, StringField, RadioField, IntegerField
 
 
 class Player:
@@ -27,7 +25,7 @@ class Player:
 
 
 # Form class
-class playerForm(FlaskForm):
+class PlayerForm(FlaskForm):
     difficulty = RadioField(
         'Starting Number of Credits',
         choices=[("1000", 'Easy (16 Skill Points Max)'),
