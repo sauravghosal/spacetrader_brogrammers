@@ -74,9 +74,8 @@ def regions():
 
     if request.method == 'POST' and request.form.get('regions') is not None:
         new_region_index = request.form.get('regions')
-        new_region = GAME.universe.find_region(int(new_region_index))
-        if GAME.travel(new_region):
-            return redirect(url_for('characterinfo'))
+        GAME.curr_region = GAME.universe.find_region(int(new_region_index))
+        return redirect(url_for('characterinfo'))
         else:
             return render_template(
                 'regions.html',
