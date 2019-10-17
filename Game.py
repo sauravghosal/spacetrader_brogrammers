@@ -26,6 +26,7 @@ class Game:
         
     def travel(self, region):
         distance = (self.curr_region.x - region.x)**2 + (self.curr_region.y - region.y)**2)**(1/2)
+        self.player.ship = 
         self.curr_region = region
 
 
