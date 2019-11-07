@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bandit Encounter</title>
+    <style>
+      h1,
+      h2,
+      h3,
+      p {
+        font-family: "Helvetica";
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Options</h1>
+      <form method="POST">
+        <ul>
+          {% for option in game.universe.regions %}
+          <input
+            type="radio"
+            name="regions"
+            value="{{region.number}}"
+          />
+          {{
+            option
+          }}
+          <br />
+          {% endfor %}
+          <input type="submit" value="Travel"></input>
+        </ul>
+      </form>
+    </div>
+    <input type="submit" value="Buy"></input>
+  </body>
+</html>

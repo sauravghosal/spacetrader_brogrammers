@@ -5,6 +5,13 @@ from flask_wtf import FlaskForm
 from wtforms import SubmitField
 from Universe import Universe
 
+# Create a bandit page
+# Create bandit form
+# Randomize encounter chance while hitting travel
+# Conditional redirection
+# Fighting off the police
+# Rob the trader
+
 
 class Game:
     """ The game class containing Player, Difficulty, Universe, and Current Region """
