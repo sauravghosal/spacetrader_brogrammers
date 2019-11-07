@@ -66,31 +66,40 @@ class Game:
                 if chance = 1:
                     randAttacker = random.randint(0, 1)
                     if randAttacker = 0:
-                        self.npc = "Police"
+                        if len(self.player.ship.inventory) > 0:
+                            self.npc = Police()
+                        else:
+                            self.npc = Bandit(self.difficulty)
                     else:
-                        self.npc = "Bandit"
+                        self.npc = Bandit(self.difficulty)
                 else:
-                    self.npc = "Trader"
+                    self.npc = Trader()
             if self.difficulty = "Medium":
                 chance = random.randint(1, 6) 
                 if chance > 1 and chance < 4:
                     randAttacker = random.randint(0, 1)
                     if randAttacker = 0:
-                        self.npc = "Police"
+                        if len(self.player.ship.inventory) > 0:
+                            self.npc = Police()
+                        else:
+                            self.npc = Bandit(self.difficulty)
                     else:
-                        self.npc = "Bandit"
+                        self.npc = Bandit(self.difficulty)
                 else:
-                    self.npc = "Trader"
+                    self.npc = Trader()
             if self.difficulty = "Hard":
                 chance = random.randint(1, 6)
                 if chance > 3:
                     randAttacker = random.randint(0, 1)
                     if randAttacker = 0:
-                        self.npc = "Police"
+                        if len(self.player.ship.inventory) > 0:
+                            self.npc = Police()
+                        else:
+                            self.npc = Bandit(self.difficulty)
                     else:
-                        self.npc = "Bandit"
+                        self.npc = Bandit(self.difficulty)
                 else:
-                    self.npc = "Trader"
+                    self.npc = Trader()
         else:
             self.npc = None
             
