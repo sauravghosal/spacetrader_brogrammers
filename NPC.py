@@ -1,5 +1,7 @@
 import random
 from Region import Region
+from flask_wtf import FlaskForm
+from wtforms import SubmitField
 
 
 class NPC:
@@ -10,9 +12,16 @@ class NPC:
 
 
 
-class Bandit(NPC):
+class NPCForm(FlaskForm):
+    submit = SubmitField("Select!")
 
-    def __init__(self):
+
+class Bandit(NPC):
+    # demand
+    # options
+    # picture
+    # getImage
+    def __init__(self, difficulty):
         super().__init__()
         demand = random.randint(1,5) * int(difficultyValues[difficulty])
         options = ["Flee", "Pay the Demand", "Fight!!!"]
