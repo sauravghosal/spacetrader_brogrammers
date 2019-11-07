@@ -11,4 +11,4 @@ class Bandit(NPC):
     #
     def __init__(self, difficulty):
         super().__init__()
-        self.demand = random.randint(1, difficulty)
+        self.demand = random.randint(1, 2)
