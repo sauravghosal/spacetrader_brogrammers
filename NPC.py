@@ -4,14 +4,23 @@ from flask_wtf import FlaskForm
 from wtforms import SubmitField
 
 
+class NPC:
+    
+    def __init__(self, difficultyValues):
+        self.difficultyValues = {"Easy": "50", "Medium": "100", "Hard": "150"}
+
+
+
+
 class NPCForm(FlaskForm):
     submit = SubmitField("Select!")
 
 
-difficultyValues = {"Easy": 50, "Medium": 100, "Hard": 150}
-
-
-class Bandit():
+class Bandit(NPC):
+    # demand
+    # options
+    # picture
+    # getImage
     def __init__(self, difficulty):
 
         self.name = "Bandit"
@@ -22,7 +31,7 @@ class Bandit():
 
     def getDemand(self):
         return self.demand
-
+    
     def getOptions(self):
         return self.options
 
@@ -33,8 +42,10 @@ class Bandit():
         return self.name
 
 
-class Trader():
-    def __init__(self, region):
+
+class Trader(NPC):
+
+    def __init__(self):
 
         self.name = "Trader"
         self.options = [
@@ -53,8 +64,8 @@ class Trader():
     def getName(self):
         return self.name
 
+class Police(NPC):
 
-class Police():
     def __init__(self):
 
         super().__init__()
