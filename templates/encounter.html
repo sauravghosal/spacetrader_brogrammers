@@ -13,10 +13,11 @@
   </head>
   <body>
     <div class="container">
-      <h1>Options</h1>
+      <h1>Oh no! An Encounter!</h1>
+      <img src="{{url_for('static', filename=game.npc.img)}}" />
       <form method="POST">
         <ul>
-          {% for option in game.options %}
+          {% for option in game.npc.options %}
           <input
             type="radio"
             name="regions"
@@ -27,10 +28,9 @@
           }}
           <br />
           {% endfor %}
-          <input type="submit" value="Travel"></input>
+          <input type="submit" value="Select"></input>
         </ul>
       </form>
     </div>
-    <input type="submit" value="Buy"></input>
   </body>
 </html>

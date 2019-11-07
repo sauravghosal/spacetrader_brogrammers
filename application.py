@@ -5,6 +5,7 @@ from flask_bootstrap import Bootstrap  #not needed anymore.. but may be good to 
 from Game import HomePageForm, Game
 from Player import Player, PlayerForm
 from Universe import UniverseForm
+from NPC import NPCForm
 
 APP = Flask(__name__)
 Bootstrap(APP)
@@ -45,7 +46,7 @@ def character():
                 GAME.start_game(player_1, 'Hard')
 
             if GAME.player.checkPoints():
-                return redirect(url_for('characterinfo'))
+                return redirect(url_for('hub'))
             else:
                 return render_template(
                     'character.html',
@@ -58,25 +59,29 @@ def character():
                                html_message='No errors detected')
 
 
-@APP.route('/characterinfo', methods=['GET', 'POST'])
-def characterinfo():
+@APP.route('/hub', methods=['GET', 'POST'])
+def hub():
     """ Displays character information with button to travel to another region """
 
     fl_form = UniverseForm()
     if fl_form.validate_on_submit():
         return redirect(url_for('regions'))
-    return render_template('characterinfo.html', game=GAME, html_form=fl_form)
+    return render_template('hub.html', game=GAME, html_form=fl_form)
 
 
 @APP.route('/regions', methods=['GET', 'POST'])
 def regions():
     """ Displays a page containing all the regions """
-
     if request.method == 'POST' and request.form.get('regions') is not None:
         new_region_index = request.form.get('regions')
         new_region = GAME.universe.find_region(int(new_region_index))
         if GAME.travel(new_region):
-            return redirect(url_for('characterinfo'))
+            GAME.encounter()
+            if GAME.npc != None:
+                return redirect(
+                    url_for('encounter'))  # encounter page redirects to travel
+                # redirect to encounter page
+            return redirect(url_for('hub'))
         else:
             return render_template(
                 'regions.html',
@@ -90,6 +95,16 @@ def regions():
                 game=GAME,
                 error="You don't have enough inventory to hold that shit.")
     return render_template('regions.html', game=GAME, error="None")
+
+
+@APP.route('/encounter', methods=['GET', 'POST'])
+def encounter():
+    """ Encounter page """
+    fl_form = NPCForm()
+    if fl_form.validate_on_submit():
+        return redirect(url_for('hub'))
+    else:
+        return render_template('encounter.html', game=GAME)
 
 
 if __name__ == '__main__':
