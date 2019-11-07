@@ -77,6 +77,7 @@ def regions():
         new_region = GAME.universe.find_region(int(new_region_index))
         if GAME.travel(new_region):
             GAME.encounter()
+            print(GAME.npc)
             if GAME.npc != None:
                 return redirect(
                     url_for('encounter'))  # encounter page redirects to travel
@@ -102,6 +103,7 @@ def encounter():
     """ Encounter page """
     fl_form = NPCForm()
     if fl_form.validate_on_submit():
+        # update player in game
         return redirect(url_for('hub'))
     else:
         return render_template('encounter.html', game=GAME)

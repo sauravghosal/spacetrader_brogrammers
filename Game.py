@@ -4,7 +4,8 @@ the Player, Difficulty, Universe, and Current Region"""
 from flask_wtf import FlaskForm
 from wtforms import SubmitField
 from Universe import Universe
-import random 
+from NPC import Bandit, Police, Trader
+import random
 
 # Create a bandit page
 # Create bandit form
@@ -60,41 +61,48 @@ class Game:
 
     def encounter(self):
         encounterChance = random.randint(0, 1)
-        if encounterChance = 1:
-            if self.difficulty = "Easy":
-                chance = random.randint(1, 6) 
-                if chance = 1:
+        if encounterChance == 1:
+            if self.difficulty == "Easy":
+                chance = random.randint(1, 6)
+                if chance == 1:
                     randAttacker = random.randint(0, 1)
-                    if randAttacker = 0:
-                        self.npc = "Police"
+                    if randAttacker == 0:
+                        if len(self.player.ship.inventory) > 0:
+                            self.npc = Police()
+                        else:
+                            self.npc = Bandit(self.difficulty)
                     else:
-                        self.npc = "Bandit"
+                        self.npc = Bandit(self.difficulty)
                 else:
-                    self.npc = "Trader"
-            if self.difficulty = "Medium":
-                chance = random.randint(1, 6) 
+                    self.npc = Trader()
+            if self.difficulty == "Medium":
+                chance = random.randint(1, 6)
                 if chance > 1 and chance < 4:
                     randAttacker = random.randint(0, 1)
-                    if randAttacker = 0:
-                        self.npc = "Police"
+                    if randAttacker == 0:
+                        if len(self.player.ship.inventory) > 0:
+                            self.npc = Police()
+                        else:
+                            self.npc = Bandit(self.difficulty)
                     else:
-                        self.npc = "Bandit"
+                        self.npc = Bandit(self.difficulty)
                 else:
-                    self.npc = "Trader"
-            if self.difficulty = "Hard":
+                    self.npc = Trader()
+            if self.difficulty == "Hard":
                 chance = random.randint(1, 6)
                 if chance > 3:
                     randAttacker = random.randint(0, 1)
-                    if randAttacker = 0:
-                        self.npc = "Police"
+                    if randAttacker == 0:
+                        if len(self.player.ship.inventory) > 0:
+                            self.npc = Police()
+                        else:
+                            self.npc = Bandit(self.difficulty)
                     else:
-                        self.npc = "Bandit"
+                        self.npc = Bandit(self.difficulty)
                 else:
-                    self.npc = "Trader"
+                    self.npc = Trader()
         else:
             self.npc = None
-            
-
 
 
 class HomePageForm(FlaskForm):
