@@ -76,7 +76,12 @@ class Game:
     def refuel(self):
         fuelToFill = 100 - self.player.ship.current_fuel
         cost = fuelToFill / 3
-        self.player.credits -= cost
+        if cost <= self.player.credits:
+            self.player.ship.current_fuel = 100
+            self.player.credits -= cost
+            return True
+        else:
+            return False
 
     def loseAllCredits(self):
         self.player.credits = 0
@@ -99,7 +104,7 @@ class Game:
                     else:
                         self.npc = Bandit(self.difficulty)
                 else:
-                    self.npc = Trader(self.curr_region)
+                    self.npc = Trader()
             if self.difficulty == "Medium":
                 chance = random.randint(1, 6)
                 if chance > 1 and chance < 4:
@@ -112,7 +117,7 @@ class Game:
                     else:
                         self.npc = Bandit(self.difficulty)
                 else:
-                    self.npc = Trader(self.curr_region)
+                    self.npc = Trader()
             if self.difficulty == "Hard":
                 chance = random.randint(1, 6)
                 if chance > 3:
@@ -125,7 +130,7 @@ class Game:
                     else:
                         self.npc = Bandit(self.difficulty)
                 else:
-                    self.npc = Trader(self.curr_region)
+                    self.npc = Trader()
         else:
             self.npc = None
 

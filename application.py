@@ -7,6 +7,7 @@ from Player import Player, PlayerForm
 from Universe import UniverseForm
 from playsound import playsound
 from NPC import NPCForm
+from BanditInteraction import BanditInteraction
 
 APP = Flask(__name__)
 Bootstrap(APP)
@@ -14,6 +15,7 @@ APP.config['WTF_CSRF_ENABLED'] = False
 
 # Game object - everything is in this object
 GAME = Game()
+result = ""
 
 
 @APP.route('/', methods=['GET', 'POST'])
@@ -67,7 +69,10 @@ def hub():
     fl_form = UniverseForm()
     if fl_form.validate_on_submit():
         return redirect(url_for('regions'))
-    return render_template('hub.html', game=GAME, html_form=fl_form)
+    return render_template('hub.html',
+                           game=GAME,
+                           html_form=fl_form,
+                           result=result)
 
 
 @APP.route('/regions', methods=['GET', 'POST'])
@@ -105,6 +110,16 @@ def encounter():
     """ Encounter page """
     if request.method == 'POST' and request.form.get('options') is not None:
         option = request.form.get('options')
+        if GAME.npc.name == 'Trader':
+            print('trader')
+            # do trader functionality
+        elif GAME.npc.name == 'Police':
+            print('police')
+            # do police functionality
+        else:
+            result = BanditInteraction(GAME, option)
+            print(result)
+            # do bandit functionality
         # update player in game
         return redirect(url_for('hub'))
     else:
