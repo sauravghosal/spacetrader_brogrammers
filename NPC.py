@@ -41,6 +41,14 @@ class Trader(NPC):
     def __init__(self):
         super().__init__()
         options = ["Continue to Region", "Buy Items", "Rob Them >:)", "Negotiate"]
+        
+
+class Police(NPC):
+
+    def __init__(self):
+        super().__init__()
+        options = ["Forfeit the Items", "Flee", "Fight"]
+        
 
 
         
