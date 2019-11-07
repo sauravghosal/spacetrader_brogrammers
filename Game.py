@@ -4,6 +4,7 @@ the Player, Difficulty, Universe, and Current Region"""
 from flask_wtf import FlaskForm
 from wtforms import SubmitField
 from Universe import Universe
+import random 
 
 
 class Game:
@@ -21,6 +22,7 @@ class Game:
         self.universe = Universe(
             ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'], [])
         self.curr_region = self.universe.pick_random_region()
+        self.npc = None
 
     def travel(self, region):
         distance = (
@@ -48,6 +50,44 @@ class Game:
             return True
         else:
             return False
+
+    def encounter(self):
+        encounterChance = random.randint(0, 1)
+        if encounterChance = 1:
+            if self.difficulty = "Easy":
+                chance = random.randint(1, 6) 
+                if chance = 1:
+                    randAttacker = random.randint(0, 1)
+                    if randAttacker = 0:
+                        self.npc = "Police"
+                    else:
+                        self.npc = "Bandit"
+                else:
+                    self.npc = "Trader"
+            if self.difficulty = "Medium":
+                chance = random.randint(1, 6) 
+                if chance > 1 and chance < 4:
+                    randAttacker = random.randint(0, 1)
+                    if randAttacker = 0:
+                        self.npc = "Police"
+                    else:
+                        self.npc = "Bandit"
+                else:
+                    self.npc = "Trader"
+            if self.difficulty = "Hard":
+                chance = random.randint(1, 6)
+                if chance > 3:
+                    randAttacker = random.randint(0, 1)
+                    if randAttacker = 0:
+                        self.npc = "Police"
+                    else:
+                        self.npc = "Bandit"
+                else:
+                    self.npc = "Trader"
+        else:
+            self.npc = None
+            
+
 
 
 class HomePageForm(FlaskForm):
