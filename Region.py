@@ -21,3 +21,6 @@ class Region:
 
     def __str__(self):
         return f'Name: {self.name}, Location: ({self.x_coord}, {self.y_coord}), tech_level: {self.tech_level}'
+
+    def getMarketPlace():
+        return marketplace
