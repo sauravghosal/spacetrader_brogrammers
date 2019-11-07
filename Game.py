@@ -74,7 +74,7 @@ class Game:
                     else:
                         self.npc = Bandit(self.difficulty)
                 else:
-                    self.npc = Trader()
+                    self.npc = Trader(self.curr_region)
             if self.difficulty == "Medium":
                 chance = random.randint(1, 6)
                 if chance > 1 and chance < 4:
@@ -87,7 +87,7 @@ class Game:
                     else:
                         self.npc = Bandit(self.difficulty)
                 else:
-                    self.npc = Trader()
+                    self.npc = Trader(self.curr_region)
             if self.difficulty == "Hard":
                 chance = random.randint(1, 6)
                 if chance > 3:
@@ -100,7 +100,7 @@ class Game:
                     else:
                         self.npc = Bandit(self.difficulty)
                 else:
-                    self.npc = Trader()
+                    self.npc = Trader(self.curr_region)
         else:
             self.npc = None
 
