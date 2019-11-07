@@ -4,36 +4,51 @@ from flask_wtf import FlaskForm
 from wtforms import SubmitField
 
 
+class NPC:
+    
+    def __init__(self, difficultyValues):
+        self.difficultyValues = {"Easy": "50", "Medium": "100", "Hard": "150"}
+
+
+
+
 class NPCForm(FlaskForm):
     submit = SubmitField("Select!")
 
 
-difficultyValues = {"Easy": 50, "Medium": 100, "Hard": 150}
-
-
-class Bandit():
+class Bandit(NPC):
+    # demand
+    # options
+    # picture
+    # getImage
     def __init__(self, difficulty):
-        self.demand = random.randint(1, 5) * difficultyValues[difficulty]
-        self.options = ["Flee", "Pay the Demand", "Fight!!!"]
-        self.damage = difficultyValues[difficulty] % 10
+        super().__init__()
+        demand = random.randint(1,5) * int(difficultyValues[difficulty])
+        options = ["Flee", "Pay the Demand", "Fight!!!"]
+        damage = difficultyValues[difficulty] % 10
 
     def getDemand(self):
         return self.demand
-
+    
     def getOptions(self):
         return self.options
 
     def getDamage(self):
         return self.damage
 
+class Trader(NPC):
 
-class Trader():
     def __init__(self):
-        self.options = [
-            "Continue to Region", "Buy Items", "Rob Them >:)", "Negotiate"
-        ]
+        super().__init__()
+        options = ["Continue to Region", "Buy Items", "Rob Them >:)", "Negotiate"]
+        
 
+class Police(NPC):
 
-class Police():
     def __init__(self):
-        self.options = ["Forfeit the Items", "Flee", "Fight"]
+        super().__init__()
+        options = ["Forfeit the Items", "Flee", "Fight"]
+        
+
+
+        

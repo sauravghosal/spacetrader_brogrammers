@@ -59,6 +59,30 @@ class Game:
         else:
             return False
 
+    def sell(self, item_key):
+        self.player.credits += self.curr_region.market.get(item_key)
+        self.player.ship.inventory.remove(item_key)
+
+    def loseMoney(self, amount):
+        self.player.credits -= amount
+
+    def loseItem(self, item_key):
+        self.player.ship.inventory.remove(item_key)
+
+    def loseRandomItem(self):
+        self.player.ship.inventory.remove(random.choice(self.player.ship.inventory))
+
+    def refuel(self):
+        fuelToFill = 100 - self.player.ship.current_fuel
+        cost = fuelToFill / 3
+        self.player.credits -= cost
+
+    def loseAllCredits(self):
+        self.player.credits = 0
+
+    def loseAllItems(self):
+        self.player.ship.inventory = []
+
     def encounter(self):
         encounterChance = random.randint(0, 1)
         if encounterChance == 1:
