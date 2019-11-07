@@ -23,6 +23,7 @@ class Bandit(NPC):
     # getImage
     def __init__(self, difficulty):
         super().__init__()
+        name = "Bandit"
         demand = random.randint(1,5) * int(difficultyValues[difficulty])
         options = ["Flee", "Pay the Demand", "Fight!!!"]
         damage = difficultyValues[difficulty] % 10
@@ -35,12 +36,30 @@ class Bandit(NPC):
 
     def getDamage(self):
         return self.damage
+    
+    def getName(self):
+        return name
+
+
 
 class Trader(NPC):
 
     def __init__(self):
         super().__init__()
+        name = "Trader"
         options = ["Continue to Region", "Buy Items", "Rob Them >:)", "Negotiate"]
+        listOfItems = []
+        for key in Region.getMarketPlace.keys()
+            listOfItems.append(random.choice(key))
+        
+    def getListOfItems(self):
+        return self.listOfItems
+
+    def getOptions(self): 
+        return self.options
+
+    def getName(self):
+        return name
         
 
 class Police(NPC):
@@ -49,6 +68,8 @@ class Police(NPC):
         super().__init__()
         options = ["Forfeit the Items", "Flee", "Fight"]
         
+    def getOptions(self):
+        return options
 
 
         
