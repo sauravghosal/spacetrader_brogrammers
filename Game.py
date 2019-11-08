@@ -41,7 +41,6 @@ class Game:
             fuel_cost = 0
         if self.player.ship.current_fuel >= fuel_cost:
             self.player.ship.current_fuel -= fuel_cost
-            self.curr_region = region
             return True
         else:
             return False
@@ -68,6 +67,10 @@ class Game:
 
     def loseItem(self, item_key):
         self.player.ship.inventory.remove(item_key)
+
+    def getRandomItem(self):
+        key = random.choice(list(self.curr_region.market.keys()))
+        return [key, self.curr_region.market.get(key)]
 
     def loseRandomItem(self):
         self.player.ship.inventory.remove(
@@ -138,3 +141,8 @@ class Game:
 class HomePageForm(FlaskForm):
     """ The form for the landing page """
     submit = SubmitField("Start New Game!")
+
+
+class SubmitForm(FlaskForm):
+    """ Submit button """
+    submit = SubmitField("Submit")
