@@ -9,7 +9,7 @@ from playsound import playsound
 from NPC import NPCForm
 from BanditInteraction import BanditInteraction
 from PoliceInteraction import PoliceInteraction
-from TraderInteraction import TraderInteraction
+from TraderInteraction import TraderInteraction, Negotiate
 
 APP = Flask(__name__)
 Bootstrap(APP)
@@ -113,8 +113,8 @@ def encounter():
         option = request.form.get('options')
         if GAME.npc.name == 'Trader':
             result = TraderInteraction(GAME, option)
-            if result == 'Not able to Negotiate':
-                return render_template("trader.html", result=result[0])
+            if result[0] == 'Not able to Negotiate':
+                return redirect(url_for("trader"))
             # do trader functionality
         elif GAME.npc.name == 'Police':
             result = PoliceInteraction(GAME, option)
@@ -144,8 +144,13 @@ def result():
 
 @APP.route('/trader', methods=['GET', 'POST'])
 def trader():
-    fl_form = SubmitForm()
-    result = request.args.get('result', None)
+    if request.method == 'POST' and request.form.get('options') is not None:
+        options = request.form.get('options')
+        print(options)
+        result = Negotiate(GAME, options)
+        return redirect(url_for('result', result=result))
+    else:
+        return render_template('trader.html', game=GAME)
 
 
 if __name__ == '__main__':
