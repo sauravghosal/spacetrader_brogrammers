@@ -3,10 +3,10 @@
 
 from flask_wtf import FlaskForm
 from wtforms import SubmitField, StringField, RadioField, IntegerField
-from Ship import Ship
+from ship import ship
 
 
-class Player:
+class player:
     #Instance variables
     skill_level = 0
 
@@ -19,7 +19,7 @@ class Player:
         self.name = name
         self.ship = Ship()
 
-    def checkPoints(self):
+    def check_points(self):
         return self.pilot + self.merchant + self.fighter + self.engineer <= self.skill_level
 
     # Setting the current Region (travel feature) - can just do p1.current_region = {new region}

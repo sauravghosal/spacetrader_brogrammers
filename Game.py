@@ -15,10 +15,12 @@ import random
 # Rob the trader
 
 
-class Game:
+class game:
     """ The game class containing Player, Difficulty, Universe, and Current Region """
-    def __init__(self):
-        pass
+    def __init__(self, player, difficulty, npc):
+        self.player = None
+        self.difficulty = None
+        self.npc = None
 
     def start_game(self, player, difficulty):
         """Starts the game and instantiates all objects/attributes

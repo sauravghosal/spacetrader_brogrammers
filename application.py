@@ -2,21 +2,21 @@
 
 from flask import Flask, render_template, request, redirect, url_for
 from flask_bootstrap import Bootstrap  #not needed anymore.. but may be good to keep for later!
-from Game import HomePageForm, Game, SubmitForm
-from Player import Player, PlayerForm
-from Universe import UniverseForm
+from game import HomePageForm, game, SubmitForm
+from player import player, PlayerForm
+from universe import UniverseForm
 from playsound import playsound
 from NPC import NPCForm
-from BanditInteraction import BanditInteraction
-from PoliceInteraction import PoliceInteraction
-from TraderInteraction import TraderInteraction
+from bandit_interaction import bandit_interaction
+from police_interaction import police_interaction
+from trader_interaction import trader_interaction
 
 APP = Flask(__name__)
 Bootstrap(APP)
 APP.config['WTF_CSRF_ENABLED'] = False
 
 # Game object - everything is in this object
-GAME = Game()
+GAME = game()
 
 
 @APP.route('/', methods=['GET', 'POST'])
@@ -112,15 +112,15 @@ def encounter():
     if request.method == 'POST' and request.form.get('options') is not None:
         option = request.form.get('options')
         if GAME.npc.name == 'Trader':
-            result = TraderInteraction(GAME, option)
+            result = trader_interaction(GAME, option)
             if result == 'Not able to Negotiate':
                 return render_template("trader.html", result=result[0])
             # do trader functionality
         elif GAME.npc.name == 'Police':
-            result = PoliceInteraction(GAME, option)
+            result = police_interaction(GAME, option)
             # do police functionality
         else:
-            result = BanditInteraction(GAME, option)
+            result = bandit_interaction(GAME, option)
             # do bandit functionality
         # update player in game
         if result[1]:

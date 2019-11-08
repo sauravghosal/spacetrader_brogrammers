@@ -1,7 +1,7 @@
 import random
 
 
-class Ship:
+class ship:
     names = [
         "Starship", "Galactica", "Starfleet", "Battle Star", "Andromeda",
         "Nebula", "Titan"

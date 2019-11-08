@@ -2,10 +2,10 @@ import random
 from flask_wtf import FlaskForm
 from wtforms import SubmitField
 from Region import Region
-import TechLevel
+import tech_level
 
 
-class Universe():  #params list of Regions
+class universe():  #params list of Regions
     #Universe is a list of regions
 
     def __init__(self, region_names, regions):
@@ -18,7 +18,7 @@ class Universe():  #params list of Regions
                 coords = (5 * random.randint(-40, 40),
                           5 * random.randint(-40, 40))
             coords_list.append(coords)
-            tech_level = TechLevel.TechLevel(random.randint(0, 6))
+            tech_level = tech_level.tech_level(random.randint(0, 6))
             regions.append(
                 Region(coords[0], coords[1], tech_level, region_names[i], i))
 
