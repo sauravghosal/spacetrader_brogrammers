@@ -32,4 +32,8 @@ def BanditInteraction(game, option):
             game.loseAllCredits()
             game.player.ship.health -= game.npc.damage
             result = "You lost all your credits & took ship damage!"
+<<<<<<< HEAD
     return [result, traveled]
+=======
+    return [result, traveled]
+>>>>>>> aa3ace4efb43de29c5c41d0b5f9ae83164199ff1
