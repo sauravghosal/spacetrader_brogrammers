@@ -30,7 +30,6 @@ def Negotiate(game, negotiateOption):
     offeredItem = game.npc.itemKey
     offeredCost = game.npc.itemValue
     result = ''
-    print(negotiateOption)
     if negotiateOption == 'Buy at higher price':
         game.buy(offeredItem)
         game.player.credits -= 2 * offeredCost
