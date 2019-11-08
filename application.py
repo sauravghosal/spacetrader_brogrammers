@@ -2,12 +2,13 @@
 
 from flask import Flask, render_template, request, redirect, url_for
 from flask_bootstrap import Bootstrap  #not needed anymore.. but may be good to keep for later!
-from Game import HomePageForm, Game
+from Game import HomePageForm, Game, SubmitForm
 from Player import Player, PlayerForm
 from Universe import UniverseForm
 from playsound import playsound
 from NPC import NPCForm
 from BanditInteraction import BanditInteraction
+from PoliceInteraction import PoliceInteraction
 
 APP = Flask(__name__)
 Bootstrap(APP)
@@ -83,7 +84,8 @@ def regions():
             GAME.encounter()
             if GAME.npc != None:
                 return redirect(
-                    url_for('encounter'))  # encounter page redirects to travel
+                    url_for('encounter', region_index=new_region_index)
+                )  # encounter page redirects to travel
                 # redirect to encounter page
             return redirect(url_for('hub'))
         else:
@@ -104,31 +106,38 @@ def regions():
 @APP.route('/encounter', methods=['GET', 'POST'])
 def encounter():
     """ Encounter page """
+    region_index = int(request.args.get('region_index', None))
+    region = GAME.universe.find_region(region_index)
     if request.method == 'POST' and request.form.get('options') is not None:
         option = request.form.get('options')
         if GAME.npc.name == 'Trader':
             result = 'trader'
             # do trader functionality
         elif GAME.npc.name == 'Police':
-            result = 'police'
+            result = PoliceInteraction(GAME, option)
             # do police functionality
         else:
             result = BanditInteraction(GAME, option)
-            print(result)
             # do bandit functionality
         # update player in game
-        return redirect(url_for('result', result=result))
+        print(result)
+        if result[1]:
+            GAME.curr_region = region
+        return redirect(url_for('result', result=result[0]))
     else:
         return render_template('encounter.html', game=GAME)
 
 
 @APP.route('/result', methods=['GET', 'POST'])
 def result():
+    fl_form = SubmitForm()
     result = request.args.get('result', None)
-    if request.method == 'POST' and request.form.get('next') is not None:
+    if fl_form.validate_on_submit():
         return redirect(url_for('hub'))
     else:
-        return render_template('encounter-result.html', result=result)
+        return render_template('encounter-result.html',
+                               result=result,
+                               html_form=fl_form)
 
 
 if __name__ == '__main__':

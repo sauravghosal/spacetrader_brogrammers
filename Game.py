@@ -41,7 +41,6 @@ class Game:
             fuel_cost = 0
         if self.player.ship.current_fuel >= fuel_cost:
             self.player.ship.current_fuel -= fuel_cost
-            self.curr_region = region
             return True
         else:
             return False
@@ -63,11 +62,15 @@ class Game:
         self.player.credits += self.curr_region.market.get(item_key)
         self.player.ship.inventory.remove(item_key)
 
-    def loseMoney(self, amount):
+    def loseCredits(self, amount):
         self.player.credits -= amount
 
     def loseItem(self, item_key):
         self.player.ship.inventory.remove(item_key)
+
+    def getRandomItem(self):
+        key = random.choice(list(self.curr_region.market.keys()))
+        return [key, self.curr_region.market.get(key)]
 
     def loseRandomItem(self):
         self.player.ship.inventory.remove(
@@ -90,7 +93,7 @@ class Game:
         self.player.ship.inventory = []
 
     def encounter(self):
-        encounterChance = random.randint(0, 1)
+        encounterChance = 1
         if encounterChance == 1:
             if self.difficulty == "Easy":
                 chance = random.randint(1, 6)
@@ -120,7 +123,7 @@ class Game:
                     self.npc = Trader()
             if self.difficulty == "Hard":
                 chance = random.randint(1, 6)
-                if chance > 3:
+                if chance > 0:
                     randAttacker = random.randint(0, 1)
                     if randAttacker == 0:
                         if len(self.player.ship.inventory) > 0:
@@ -138,3 +141,8 @@ class Game:
 class HomePageForm(FlaskForm):
     """ The form for the landing page """
     submit = SubmitField("Start New Game!")
+
+
+class SubmitForm(FlaskForm):
+    """ Submit button """
+    submit = SubmitField("Submit")

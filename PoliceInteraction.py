@@ -1,7 +1,9 @@
 import random
 
+
 def PoliceInteraction(game, option, region):
-    if result = ""
+    result = ""
+    traveled = True
     if option == 'Forfeit the Items':
         game.loseAllItems()
         result = "Lost all your items"
@@ -18,4 +20,5 @@ def PoliceInteraction(game, option, region):
             game.loseAllItems()
             game.player.ship.health -= 10
             game.loseMoney(10)
-            game.curr_region= = region
+            game.curr_region = region
+    return result

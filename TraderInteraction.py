@@ -1,12 +1,9 @@
-import random
-
-def TraderInteraction(game, option):
-    result = ""
+def TraderInteraction(game, option, region):
     if game.player.credits > option.credits:
         game.buy(option.item)
-    elif (ignores) {
+    elif ignores:
         travel to region
-    } else if (canRob) {
+    elif (canRob) {
         if (isAbleToWin) {
             stealItem()
         } else {
