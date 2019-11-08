@@ -15,7 +15,6 @@ APP.config['WTF_CSRF_ENABLED'] = False
 
 # Game object - everything is in this object
 GAME = Game()
-result = ""
 
 
 @APP.route('/', methods=['GET', 'POST'])
@@ -69,10 +68,7 @@ def hub():
     fl_form = UniverseForm()
     if fl_form.validate_on_submit():
         return redirect(url_for('regions'))
-    return render_template('hub.html',
-                           game=GAME,
-                           html_form=fl_form,
-                           result=result)
+    return render_template('hub.html', game=GAME, html_form=fl_form)
 
 
 @APP.route('/regions', methods=['GET', 'POST'])
@@ -111,19 +107,28 @@ def encounter():
     if request.method == 'POST' and request.form.get('options') is not None:
         option = request.form.get('options')
         if GAME.npc.name == 'Trader':
-            print('trader')
+            result = 'trader'
             # do trader functionality
         elif GAME.npc.name == 'Police':
-            print('police')
+            result = 'police'
             # do police functionality
         else:
             result = BanditInteraction(GAME, option)
             print(result)
             # do bandit functionality
         # update player in game
-        return redirect(url_for('hub'))
+        return redirect(url_for('result', result=result))
     else:
         return render_template('encounter.html', game=GAME)
+
+
+@APP.route('/result', methods=['GET', 'POST'])
+def result():
+    result = request.args.get('result', None)
+    if request.method == 'POST' and request.form.get('next') is not None:
+        return redirect(url_for('hub'))
+    else:
+        return render_template('encounter-result.html', result=result)
 
 
 if __name__ == '__main__':

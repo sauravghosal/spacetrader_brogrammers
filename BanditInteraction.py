@@ -21,7 +21,7 @@ def BanditInteraction(game, option):
             game.player.ship.health -= game.npc.damage
             result = "You lost all your credits & took ship damage!"
     else:
-        if game.player.fighter <= random.randint(0, 16):
+        if game.player.fighter >= random.randint(0, 16):
             game.player.credits += 100
             result = "You stole credits from bandit"
         else:
