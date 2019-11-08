@@ -93,7 +93,7 @@ class Game:
         self.player.ship.inventory = []
 
     def encounter(self):
-        encounterChance = 1
+        encounterChance = random.randint(0, 1)
         if encounterChance == 1:
             if self.difficulty == "Easy":
                 chance = random.randint(1, 6)
@@ -123,7 +123,7 @@ class Game:
                     self.npc = Trader()
             if self.difficulty == "Hard":
                 chance = random.randint(1, 6)
-                if chance > 0:
+                if chance > 3:
                     randAttacker = random.randint(0, 1)
                     if randAttacker == 0:
                         if len(self.player.ship.inventory) > 0:
