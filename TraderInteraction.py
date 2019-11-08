@@ -1,4 +1,7 @@
+import random
+
 def TraderInteraction(game, option):
+    result = ""
     if game.player.credits > option.credits:
         game.buy(option.item)
     elif (ignores) {
@@ -15,14 +18,10 @@ def TraderInteraction(game, option):
         } else {
             if (wantsToBuy) {
                 buyHighPrice()
+            } else if (ignores) {
+                ignore()
             } else {
-                if (wantsToBuy) {
-                    buy()
-                } else if (ignores) {
-                    ignore()
-                } else {
-                    rob()
-                }
+                rob()
             }
-        }
+        }        
     }
