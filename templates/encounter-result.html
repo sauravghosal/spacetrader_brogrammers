@@ -13,8 +13,8 @@
   </head>
   <body>
     <h1>{{ result }}</h1>
-    <form method="POST">
-      <input type="button" name="next" value="Submit" />
+    <form method="POST" action="">
+      {{ html_form.submit() }}
     </form>
   </body>
 </html>

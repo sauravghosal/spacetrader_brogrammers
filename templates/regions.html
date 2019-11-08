@@ -14,6 +14,7 @@
   <body>
     <div class="container">
       <h1>Potential Regions</h1>
+      <h3>Current Region --- {{ game.curr_region }}</h3>
       <form method="POST">
         <ul>
           {% for region in game.universe.regions %}
@@ -38,6 +39,7 @@
     </div>
     <h3> Current Fuel: {{ game.player.ship.current_fuel }} </h3>  
     <h3> Current Credits: {{ game.player.credits }} </h3>  
+    <h3> Ship Health: {{ game.player.ship.health }} </h3>
     <form method="POST">
       <ul>
         {% for key in game.curr_region.market.keys() %}
