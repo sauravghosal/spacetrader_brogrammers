@@ -2,7 +2,7 @@ import random
 
 
 # when fleeing go back to travel page
-def BanditInteraction(game, option):
+def BanditInteraction(game, option, region):
     result = ""
     if option == 'Pay the Demand':
         if game.player.credits <= game.npc.demand:
