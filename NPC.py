@@ -16,6 +16,7 @@ class Bandit():
         self.demand = random.randint(1, 5) * difficultyValues[difficulty]
         self.options = ["Flee", "Pay the Demand", "Fight!!!"]
         self.damage = difficultyValues.get(difficulty) / 10
+        self.img = "static/bandit.jpg"
 
 
 class Trader():
@@ -31,9 +32,11 @@ class Trader():
         self.market = Region.marketplace.get(region.tech_level)
         self.itemKey = random.choice(list(self.market.keys()))
         self.itemValue = self.market.get(self.itemKey)
+        self.img = "static/trader.jpg"
 
 
 class Police():
     def __init__(self):
         self.name = "Police"
         self.options = ["Forfeit the Items", "Flee", "Fight"]
+        self.img = "static/police.jpg"

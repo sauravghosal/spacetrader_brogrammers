@@ -101,6 +101,9 @@ def regions():
                 'regions.html',
                 game=GAME,
                 error="You don't have enough inventory to hold that shit.")
+    elif request.method == 'POST' and request.form.get('inventory') is not None:
+        item_key = request.form.get('inventory')
+        GAME.loseItem(item_key)
     return render_template('regions.html', game=GAME, error="None")
 
 
@@ -146,7 +149,6 @@ def result():
 def trader():
     if request.method == 'POST' and request.form.get('options') is not None:
         options = request.form.get('options')
-        print(options)
         result = Negotiate(GAME, options)
         return redirect(url_for('result', result=result))
     else:

@@ -63,10 +63,16 @@
     <form method="POST">
       <ul>
         {% for item in game.player.ship.inventory %}
-        <li>
+        <input
+        type="radio"
+        name="inventory"
+        value="{{item}}">
           {{ item }}
-        </li>
+        </input>
+        <br />
+
         {% endfor %}
+        <input type="submit" value="Sell"></input>
       </ul>
     </form>
     <h3 style=color:crimson> Error: {{ error }} </h3>

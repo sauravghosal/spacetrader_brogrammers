@@ -66,6 +66,7 @@ class Game:
         self.player.credits -= amount
 
     def loseItem(self, item_key):
+        self.player.credits += self.curr_region.market.get(item_key)
         self.player.ship.inventory.remove(item_key)
 
     def loseRandomItem(self):
@@ -89,10 +90,10 @@ class Game:
         self.player.ship.inventory = []
 
     def encounter(self):
-        encounterChance = 1
+        encounterChance = random.randint(0, 1)
         if encounterChance == 1:
             if self.difficulty == "Easy":
-                chance = 0
+                chance = random.randint(1, 6)
                 if chance == 1:
                     randAttacker = random.randint(0, 1)
                     if randAttacker == 0:
@@ -141,4 +142,4 @@ class HomePageForm(FlaskForm):
 
 class SubmitForm(FlaskForm):
     """ Submit button """
-    submit = SubmitField("Submit")
+    submit = SubmitField("Continue")
