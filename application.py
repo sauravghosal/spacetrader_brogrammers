@@ -5,7 +5,6 @@ from flask_bootstrap import Bootstrap  #not needed anymore.. but may be good to 
 from Game import HomePageForm, Game, SubmitForm
 from Player import Player, PlayerForm
 from Universe import UniverseForm
-# from playsound import playsound
 from NPC import NPCForm
 from BanditInteraction import BanditInteraction
 from PoliceInteraction import PoliceInteraction
@@ -118,14 +117,10 @@ def encounter():
             result = TraderInteraction(GAME, option)
             if result[0] == 'Not able to Negotiate':
                 return redirect(url_for("trader"))
-            # do trader functionality
         elif GAME.npc.name == 'Police':
             result = PoliceInteraction(GAME, option)
-            # do police functionality
         else:
             result = BanditInteraction(GAME, option)
-            # do bandit functionality
-        # update player in game
         if result[1]:
             GAME.curr_region = region
         return redirect(url_for('result', result=result[0]))

@@ -16,7 +16,7 @@ class Bandit():
         self.demand = random.randint(1, 5) * difficultyValues[difficulty]
         self.options = ["Flee", "Pay the Demand", "Fight!!!"]
         self.damage = difficultyValues.get(difficulty) / 10
-        self.img = "static/bandit.jpg"
+        self.img = "static/newbandit.jpg"
 
 
 class Trader():

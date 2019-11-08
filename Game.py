@@ -66,7 +66,7 @@ class Game:
         self.player.credits -= amount
 
     def loseItem(self, item_key):
-        self.player.credits += self.curr_region.market.get(item_key)
+        self.player.credits += 3
         self.player.ship.inventory.remove(item_key)
 
     def loseRandomItem(self):
@@ -119,7 +119,7 @@ class Game:
                 else:
                     self.npc = Trader(self.curr_region)
             if self.difficulty == "Hard":
-                chance = random.randint(1, 6)
+                chance = random.randint(3, 6)
                 if chance > 3:
                     randAttacker = random.randint(0, 1)
                     if randAttacker == 0:
