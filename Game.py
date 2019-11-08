@@ -88,7 +88,11 @@ class Game:
     def loseAllItems(self):
         self.player.ship.inventory = []
 
+<<<<<<< HEAD
     def encounter(self, region):
+=======
+    def encounter(self):
+>>>>>>> dfbda60131a9d5ba048fe6e142ba9cb8f01d9124
         encounterChance = random.randint(0, 1)
         if encounterChance == 1:
             if self.difficulty == "Easy":
