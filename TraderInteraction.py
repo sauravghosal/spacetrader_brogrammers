@@ -15,14 +15,10 @@ def TraderInteraction(game, option, region):
         } else {
             if (wantsToBuy) {
                 buyHighPrice()
+            } else if (ignores) {
+                ignore()
             } else {
-                if (wantsToBuy) {
-                    buy()
-                } else if (ignores) {
-                    ignore()
-                } else {
-                    rob()
-                }
+                rob()
             }
-        }
+        }        
     }

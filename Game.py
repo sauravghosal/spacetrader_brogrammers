@@ -62,7 +62,7 @@ class Game:
         self.player.credits += self.curr_region.market.get(item_key)
         self.player.ship.inventory.remove(item_key)
 
-    def loseMoney(self, amount):
+    def loseCredits(self, amount):
         self.player.credits -= amount
 
     def loseItem(self, item_key):
@@ -93,7 +93,7 @@ class Game:
         self.player.ship.inventory = []
 
     def encounter(self):
-        encounterChance = random.randint(0, 1)
+        encounterChance = 1
         if encounterChance == 1:
             if self.difficulty == "Easy":
                 chance = random.randint(1, 6)
@@ -123,7 +123,7 @@ class Game:
                     self.npc = Trader()
             if self.difficulty == "Hard":
                 chance = random.randint(1, 6)
-                if chance > 3:
+                if chance > 0:
                     randAttacker = random.randint(0, 1)
                     if randAttacker == 0:
                         if len(self.player.ship.inventory) > 0:

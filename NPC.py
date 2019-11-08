@@ -15,7 +15,9 @@ class Bandit():
         self.name = "Bandit"
         self.demand = random.randint(1, 5) * difficultyValues[difficulty]
         self.options = ["Flee", "Pay the Demand", "Fight!!!"]
-        self.damage = difficultyValues[difficulty] % 10
+        print(difficulty)
+        print(difficultyValues)
+        self.damage = difficultyValues.get(difficulty) % 10
 
     def getDemand(self):
         return self.demand

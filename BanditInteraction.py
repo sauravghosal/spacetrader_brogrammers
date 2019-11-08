@@ -2,10 +2,10 @@ import random
 
 
 # when fleeing go back to travel page
-def BanditInteraction(game, option, region):
+def BanditInteraction(game, option):
     result = ""
+    traveled = True
     if option == 'Pay the Demand':
-        game.curr_region = region
         if game.player.credits <= game.npc.demand:
             if len(game.player.ship.inventory):
                 game.loseAllItems()
@@ -18,14 +18,13 @@ def BanditInteraction(game, option, region):
             result = "You lost credits!"
     elif option == 'Flee':
         if (game.player.pilot <= random.randint(0, 16)):
-            game.loseAllMoney()
+            game.loseAllCredits()
             game.player.ship.health -= game.npc.damage
             result = "You lost all your credits & took ship damage!"
-            game.curr_region = region
         else:
             result = "You successfully flee."
+            traveled = False
     else:
-        game.curr_region = region
         if game.player.fighter >= random.randint(0, 16):
             game.player.credits += 100
             result = "You stole credits from bandit"
@@ -33,4 +32,4 @@ def BanditInteraction(game, option, region):
             game.loseAllCredits()
             game.player.ship.health -= game.npc.damage
             result = "You lost all your credits & took ship damage!"
-    return result
+    return [result, traveled]

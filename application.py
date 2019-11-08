@@ -8,6 +8,7 @@ from Universe import UniverseForm
 from playsound import playsound
 from NPC import NPCForm
 from BanditInteraction import BanditInteraction
+from PoliceInteraction import PoliceInteraction
 
 APP = Flask(__name__)
 Bootstrap(APP)
@@ -82,9 +83,9 @@ def regions():
         if GAME.travel(new_region):
             GAME.encounter()
             if GAME.npc != None:
-                return redirect(url_for(
-                    'encounter',
-                    region=new_region))  # encounter page redirects to travel
+                return redirect(
+                    url_for('encounter', region_index=new_region_index)
+                )  # encounter page redirects to travel
                 # redirect to encounter page
             return redirect(url_for('hub'))
         else:
@@ -105,21 +106,24 @@ def regions():
 @APP.route('/encounter', methods=['GET', 'POST'])
 def encounter():
     """ Encounter page """
-    region = request.args.get('region', None)
+    region_index = int(request.args.get('region_index', None))
+    region = GAME.universe.find_region(region_index)
     if request.method == 'POST' and request.form.get('options') is not None:
         option = request.form.get('options')
         if GAME.npc.name == 'Trader':
             result = 'trader'
             # do trader functionality
         elif GAME.npc.name == 'Police':
-            result = 'police'
+            result = PoliceInteraction(GAME, option)
             # do police functionality
         else:
-            result = BanditInteraction(GAME, option, region)
-            print(result)
+            result = BanditInteraction(GAME, option)
             # do bandit functionality
         # update player in game
-        return redirect(url_for('result', result=result))
+        print(result)
+        if result[1]:
+            GAME.curr_region = region
+        return redirect(url_for('result', result=result[0]))
     else:
         return render_template('encounter.html', game=GAME)
 
@@ -129,7 +133,7 @@ def result():
     fl_form = SubmitForm()
     result = request.args.get('result', None)
     if fl_form.validate_on_submit():
-        return redirect(url_for('regions'))
+        return redirect(url_for('hub'))
     else:
         return render_template('encounter-result.html',
                                result=result,
