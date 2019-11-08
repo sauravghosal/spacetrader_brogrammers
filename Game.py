@@ -70,12 +70,18 @@ class Game:
         self.player.ship.inventory.remove(item_key)
 
     def loseRandomItem(self):
-        self.player.ship.inventory.remove(random.choice(self.player.ship.inventory))
+        self.player.ship.inventory.remove(
+            random.choice(self.player.ship.inventory))
 
     def refuel(self):
         fuelToFill = 100 - self.player.ship.current_fuel
         cost = fuelToFill / 3
-        self.player.credits -= cost
+        if cost <= self.player.credits:
+            self.player.ship.current_fuel = 100
+            self.player.credits -= cost
+            return True
+        else:
+            return False
 
     def loseAllCredits(self):
         self.player.credits = 0

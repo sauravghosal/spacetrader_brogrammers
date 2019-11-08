@@ -13,14 +13,15 @@
   </head>
   <body>
     <div class="container">
-      <h1>Oh no! An Encounter!</h1>
+      <h1> Look, A {{game.npc.name}} has appeared!!</h1>
       <img src="{{url_for('static', filename=game.npc.img)}}" />
       <form method="POST">
+        <h2>Options</h2>
         <ul>
           {% for option in game.npc.options %}
           <input
             type="radio"
-            name="regions"
+            name="options"
             value="{{option}}"
           />
           {{
@@ -28,6 +29,15 @@
           }}
           <br />
           {% endfor %}
+          {% if game.npc.name == 'Trader' %}
+          <h1>Your Inventory</h1>
+            {% for item in game.player.ship.inventory %}
+              <input type="radio"
+              name="inventory"
+              value="item">{{ item }}</li>
+              <br />
+            {% endfor %}
+          {% endif %}
           <input type="submit" value="Select"></input>
         </ul>
       </form>
