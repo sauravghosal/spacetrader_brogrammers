@@ -9,6 +9,7 @@ from playsound import playsound
 from NPC import NPCForm
 from BanditInteraction import BanditInteraction
 from PoliceInteraction import PoliceInteraction
+from TraderInteraction import TraderInteraction
 
 APP = Flask(__name__)
 Bootstrap(APP)
@@ -81,7 +82,7 @@ def regions():
         new_region_index = request.form.get('regions')
         new_region = GAME.universe.find_region(int(new_region_index))
         if GAME.travel(new_region):
-            GAME.encounter()
+            GAME.encounter(new_region)
             if GAME.npc != None:
                 return redirect(
                     url_for('encounter', region_index=new_region_index)
@@ -111,7 +112,7 @@ def encounter():
     if request.method == 'POST' and request.form.get('options') is not None:
         option = request.form.get('options')
         if GAME.npc.name == 'Trader':
-            result = 'trader'
+            result = TraderInteraction(GAME, option, "")
             # do trader functionality
         elif GAME.npc.name == 'Police':
             result = PoliceInteraction(GAME, option)

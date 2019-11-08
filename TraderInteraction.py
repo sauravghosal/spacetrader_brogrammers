@@ -1,10 +1,11 @@
 import random
 
-def TraderInteraction(game, option):
+
+def TraderInteraction(game, option, negotiateOption):
     traveled = True
     result = ""
-    offeredItem = game.getRandomItem()[0]
-    offeredCost = game.getRandomItem()[1]
+    offeredItem = game.npc.itemKey
+    offeredCost = game.npc.itemValue
     if option == 'Buy Items':
         game.buy(offeredItem)
         result = "You bought the trader's item!"
@@ -34,6 +35,4 @@ def TraderInteraction(game, option):
                 else:
                     game.player.ship.health -= 10
                     result = "Your ship took damage!"
-    return [result, traveled]  
-
-    
+    return [result, traveled]

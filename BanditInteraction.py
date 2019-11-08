@@ -20,7 +20,7 @@ def BanditInteraction(game, option):
         if (game.player.pilot <= random.randint(0, 16)):
             game.loseAllCredits()
             game.player.ship.health -= game.npc.damage
-            result = "You lost all your credits & took ship damage!"
+            result = "You are unable to flee, lost all your credits, and took ship damage!"
         else:
             result = "You successfully fled back to the previous region!"
             traveled = False

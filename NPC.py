@@ -15,47 +15,21 @@ class Bandit():
         self.name = "Bandit"
         self.demand = random.randint(1, 5) * difficultyValues[difficulty]
         self.options = ["Flee", "Pay the Demand", "Fight!!!"]
-        print(difficulty)
-        print(difficultyValues)
-        self.damage = difficultyValues.get(difficulty) % 10
-
-    def getDemand(self):
-        return self.demand
-
-    def getOptions(self):
-        return self.options
-
-    def getDamage(self):
-        return self.damage
-
-    def getName(self):
-        return self.name
+        self.damage = difficultyValues.get(difficulty) / 10
 
 
 class Trader():
-    def __init__(self):
+    def __init__(self, region):
         self.name = "Trader"
         self.options = [
             "Continue to Region", "Buy Items", "Rob Them >:)", "Negotiate",
             "Sell items"
         ]
-        self.listOfItems = []
-        print(Region.marketplace.keys())
-
-    def getListOfItems(self):
-        return self.listOfItems
-
-    def getOptions(self):
-        return self.options
-
-    def getName(self):
-        return self.name
+        self.itemKey = random.choice(list(Region.marketplace.keys()))
+        self.itemValue = Region.marketplace.get(self.itemKey)
 
 
 class Police():
     def __init__(self):
         self.name = "Police"
         self.options = ["Forfeit the Items", "Flee", "Fight"]
-
-    def getOptions(self):
-        return self.options
