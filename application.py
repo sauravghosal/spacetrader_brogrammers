@@ -82,7 +82,7 @@ def regions():
         new_region_index = request.form.get('regions')
         new_region = GAME.universe.find_region(int(new_region_index))
         if GAME.travel(new_region):
-            GAME.encounter(new_region)
+            GAME.encounter()
             if GAME.npc != None:
                 return redirect(
                     url_for('encounter', region_index=new_region_index)
@@ -112,7 +112,9 @@ def encounter():
     if request.method == 'POST' and request.form.get('options') is not None:
         option = request.form.get('options')
         if GAME.npc.name == 'Trader':
-            result = TraderInteraction(GAME, option, "")
+            result = TraderInteraction(GAME, option)
+            if result == 'Not able to Negotiate':
+                return render_template("trader.html", result=result[0])
             # do trader functionality
         elif GAME.npc.name == 'Police':
             result = PoliceInteraction(GAME, option)
@@ -121,7 +123,6 @@ def encounter():
             result = BanditInteraction(GAME, option)
             # do bandit functionality
         # update player in game
-        print(result)
         if result[1]:
             GAME.curr_region = region
         return redirect(url_for('result', result=result[0]))
@@ -139,6 +140,12 @@ def result():
         return render_template('encounter-result.html',
                                result=result,
                                html_form=fl_form)
+
+
+@APP.route('/trader', methods=['GET', 'POST'])
+def trader():
+    fl_form = SubmitForm()
+    result = request.args.get('result', None)
 
 
 if __name__ == '__main__':

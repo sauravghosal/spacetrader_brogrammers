@@ -30,15 +30,9 @@
           <br />
           {% endfor %}
           {% if game.npc.name == 'Trader' %}
-          <h1>Your Inventory</h1>
-            {% for item in game.player.ship.inventory %}
-              <input type="radio"
-              name="inventory"
-              value="item">{{ item }}</li>
-              <br />
-            {% endfor %}
+          <h1>Item Offered: {{ game.npc.itemKey }}</h1>
           {% endif %}
-          <input type="submit" value="Select"></input>
+          <input type="submit" value="Select" title="let's go!"></input>
         </ul>
       </form>
     </div>

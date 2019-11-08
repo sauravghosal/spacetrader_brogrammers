@@ -88,15 +88,11 @@ class Game:
     def loseAllItems(self):
         self.player.ship.inventory = []
 
-<<<<<<< HEAD
-    def encounter(self, region):
-=======
     def encounter(self):
->>>>>>> dfbda60131a9d5ba048fe6e142ba9cb8f01d9124
-        encounterChance = random.randint(0, 1)
+        encounterChance = 1
         if encounterChance == 1:
             if self.difficulty == "Easy":
-                chance = random.randint(1, 6)
+                chance = 0
                 if chance == 1:
                     randAttacker = random.randint(0, 1)
                     if randAttacker == 0:
@@ -107,7 +103,7 @@ class Game:
                     else:
                         self.npc = Bandit(self.difficulty)
                 else:
-                    self.npc = Trader(region)
+                    self.npc = Trader(self.curr_region)
             if self.difficulty == "Medium":
                 chance = random.randint(1, 6)
                 if chance > 1 and chance < 4:
@@ -120,7 +116,7 @@ class Game:
                     else:
                         self.npc = Bandit(self.difficulty)
                 else:
-                    self.npc = Trader(region)
+                    self.npc = Trader(self.curr_region)
             if self.difficulty == "Hard":
                 chance = random.randint(1, 6)
                 if chance > 3:
@@ -133,7 +129,7 @@ class Game:
                     else:
                         self.npc = Bandit(self.difficulty)
                 else:
-                    self.npc = Trader(region)
+                    self.npc = Trader(self.curr_region)
         else:
             self.npc = None
 

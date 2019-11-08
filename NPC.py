@@ -25,8 +25,9 @@ class Trader():
             "Continue to Region", "Buy Items", "Rob Them >:)", "Negotiate",
             "Sell items"
         ]
-        self.itemKey = random.choice(list(Region.marketplace.keys()))
-        self.itemValue = Region.marketplace.get(self.itemKey)
+        self.market = Region.marketplace.get(region.tech_level)
+        self.itemKey = random.choice(list(self.market.keys()))
+        self.itemValue = self.market.get(self.itemKey)
 
 
 class Police():
