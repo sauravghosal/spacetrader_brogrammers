@@ -29,7 +29,9 @@ def TraderInteraction(game, option):
 def Negotiate(game, negotiateOption):
     offeredItem = game.npc.itemKey
     offeredCost = game.npc.itemValue
-    if negotiateOption == 'Buy':
+    result = ''
+    print(negotiateOption)
+    if negotiateOption == 'Buy at higher price':
         game.buy(offeredItem)
         game.player.credits -= 2 * offeredCost
         result = "You bought the item at an increased price!"
@@ -41,4 +43,4 @@ def Negotiate(game, negotiateOption):
         else:
             game.player.ship.health -= 10
             result = "Your ship took damage!"
-    return [result, True]
+    return result

@@ -22,9 +22,12 @@ class Trader():
     def __init__(self, region):
         self.name = "Trader"
         self.options = [
-            "Continue to Region", "Buy Items", "Rob Them >:)", "Negotiate",
-            "Sell items"
+            "Continue to Region",
+            "Buy Items",
+            "Rob Them >:)",
+            "Negotiate",
         ]
+        self.optionsNoNegotiate = ["Buy at higher price", "Ignore", "Rob"]
         self.market = Region.marketplace.get(region.tech_level)
         self.itemKey = random.choice(list(self.market.keys()))
         self.itemValue = self.market.get(self.itemKey)

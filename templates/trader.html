@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Trader Response</title>
+    <title>Bandit Encounter</title>
     <style>
       h1,
       h2,
@@ -12,9 +12,29 @@
     </style>
   </head>
   <body>
-    <h1>{{ result }}</h1>
-    <form method="POST" action="">
-      {{ html_form.submit() }}
-    </form>
+    <div class="container">
+      <h1> Can't Negotiate! </h1>
+      <img src="{{url_for('static', filename=game.npc.img)}}" />
+      <form method="POST">
+        <h2>Options</h2>
+        <ul>
+          {% for option in game.npc.optionsNoNegotiate %}
+          <input
+            type="radio"
+            name="options"
+            value="{{option}}"
+          />
+          {{
+            option
+          }}
+          <br />
+          {% endfor %}
+          {% if game.npc.name == 'Trader' %}
+          <h1>Item Offered: {{ game.npc.itemKey }}</h1>
+          {% endif %}
+          <input type="submit" value="Select" title="let's go!"></input>
+        </ul>
+      </form>
+    </div>
   </body>
 </html>
