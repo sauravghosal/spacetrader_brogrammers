@@ -1,7 +1,7 @@
 import random
 
 
-# when fleeing go back to travel page
+# how much money they want from me
 def BanditInteraction(game, option):
     result = ""
     traveled = True
@@ -14,7 +14,7 @@ def BanditInteraction(game, option):
                 game.player.ship.health -= game.npc.damage
                 result = "You couldn't afford the demand and you don't have items, so your ship took damage!"
         else:
-            game.player.credit -= game.npc.demand
+            game.player.credits -= game.npc.demand
             result = "You lost credits from the Bandit!"
     elif option == 'Flee':
         if (game.player.pilot <= random.randint(0, 16)):

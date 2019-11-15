@@ -1,6 +1,7 @@
 import random
 
 
+# Cost of item
 def TraderInteraction(game, option):
     traveled = True
     result = ""

@@ -18,7 +18,11 @@ import random
 class Game:
     """ The game class containing Player, Difficulty, Universe, and Current Region """
     def __init__(self):
-        pass
+        self.difficulty = None
+        self.player = None
+        self.universe = None
+        self.curr_region = None
+        self.npc = None
 
     def start_game(self, player, difficulty):
         """Starts the game and instantiates all objects/attributes

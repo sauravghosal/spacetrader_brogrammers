@@ -1,7 +1,7 @@
 import random
-from Region import Region
 from flask_wtf import FlaskForm
 from wtforms import SubmitField
+from Region import Region
 
 difficultyValues = {"Easy": 50, "Medium": 100, "Hard": 150}
 
