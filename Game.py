@@ -4,7 +4,10 @@ the Player, Difficulty, Universe, and Current Region"""
 from flask_wtf import FlaskForm
 from wtforms import SubmitField
 from Universe import Universe
-from NPC import Bandit, Police, Trader
+from NPC import NPC
+from Bandit import Bandit
+from Trader import Trader
+from Police import Police
 import random
 
 # Create a bandit page

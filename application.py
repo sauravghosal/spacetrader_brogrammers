@@ -84,9 +84,7 @@ def regions():
             GAME.encounter()
             if GAME.npc != None:
                 return redirect(
-                    url_for('encounter', region_index=new_region_index)
-                )  # encounter page redirects to travel
-                # redirect to encounter page
+                    url_for('encounter', region_index=new_region_index))
             return redirect(url_for('hub'))
         else:
             return render_template(
@@ -100,7 +98,8 @@ def regions():
                 'regions.html',
                 game=GAME,
                 error="You don't have enough inventory to hold that shit.")
-    elif request.method == 'POST' and request.form.get('inventory') is not None:
+    elif request.method == 'POST' and request.form.get(
+            'inventory') is not None:
         item_key = request.form.get('inventory')
         GAME.loseItem(item_key)
     return render_template('regions.html', game=GAME, error="None")
