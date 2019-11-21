@@ -40,6 +40,6 @@ class Bandit(NPC):
                 result = "You stole credits from the Bandit!"
             else:
                 game.loseAllCredits()
-                game.player.ship.health -= self.damage
+                game.player.ship.health -= 100
                 result = "You lost all your credits & took ship damage!"
         return [result, traveled]

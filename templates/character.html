@@ -1,38 +1,41 @@
-<!DOCTYPE html>
-<html>
-  <head>
-      <title>Character Customization</title>
-      <style>
-          h1, h2, h3, p {
-             font-family: "Helvetica";
-          }
-       </style>
-  </head>
-  <body>
-    <div class="container">
+{%- extends "base.html" %} {% import "bootstrap/utils.html" as utils %} {% block
+title %}Character Selection{% endblock %} {% block content %}
+<div class="container">
+  <div class="container">
+    <div class="page-header">
       <h1>Character Customization</h1>
-      <form method="POST" action="">
-          <h3>{{ html_form.name.label }}</h3>
-          <p>{{ html_form.name() }} </p> 
-          <h3> Please select your desired difficulty level </h3>
-          <p>{{ html_form.difficulty() }}</p>
+    </div>
+    {%- with messages = get_flashed_messages(with_categories=True) %} {%- if
+    messages %}
+    <div class="row">
+      <div class="col-md-12">
+        {{utils.flashed_messages(messages)}}
+      </div>
+    </div>
+    {%- endif %} {%- endwith %}
+    <form method="POST" action="">
+      <label for="name">{{ html_form.name.label }}</label>
+      <p id="name">{{ html_form.name() }}</p>
 
-          <h2>Skill Point Allocation</h2>
-          <h3>{{ html_form.pilot.label }}</h3>
-          <p>{{ html_form.pilot() }}</p>
+      <h3>Please select your desired difficulty level</h3>
+      <p>{{ html_form.difficulty() }}</p>
 
-          <h3>{{ html_form.merchant.label }}</h3>
-          <p>{{ html_form.merchant() }}</p>
+      <h2>Skill Point Allocation</h2>
+      <label for="pilot">{{ html_form.pilot.label }}</label>
+      <p id="pilot">{{ html_form.pilot() }}</p>
 
-          <h3>{{ html_form.fighter.label }}</h3>
-          <p>{{ html_form.fighter() }}</p>
+      <h3>{{ html_form.merchant.label }}</h3>
+      <p>{{ html_form.merchant() }}</p>
 
-          <h3>{{ html_form.engineer.label }}</h3>
-          <p>{{ html_form.engineer() }}</p>
-        
-          {{ html_form.submit() }}
-        <h2> <span style=color:crimson> {{html_message}} </span> </h2> 
+      <h3>{{ html_form.fighter.label }}</h3>
+      <p>{{ html_form.fighter() }}</p>
+
+      <h3>{{ html_form.engineer.label }}</h3>
+      <p>{{ html_form.engineer() }}</p>
+
+      {{ html_form.submit() }}
+      <h2><span style="color:crimson"> {{html_message}} </span></h2>
     </form>
   </div>
-  </html>
-
+</div>
+{%- endblock %}
