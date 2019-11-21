@@ -1,34 +1,32 @@
-<!DOCTYPE html>
-<html lang="en-US">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Player Info</title>
-    <style>
-      h1,
-      h2,
-      p {
-        font-family: "Helvetica";
-        padding: 5px;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
+{%- extends "base.html" %} {% import "bootstrap/utils.html" as utils %} {% block
+title %}Character Information{% endblock %} {% block content %}
+<div class="container">
+  <div class="container">
+    <div class="page-header">
       <h1>Player Information</h1>
-      <form method="POST" action="/">
-        <p>Character Name: {{ game.player.name }}</p>
-        <p>Difficulty: {{ game.difficulty }}</p>
-
-        <h2>Skill Points</h2>
-        <p>Pilot points: {{ game.player.pilot }}</p>
-        <p>Merchant points : {{ game.player.merchant }}</p>
-        <p>Fighter points : {{ game.player.fighter }}</p>
-        <p>Engineer points : {{ game.player.engineer }}</p>
-        <p>Current Region: {{ game.curr_region }}</p>
-      </form>
-      <form method="POST" action="/regions">
-        {{ html_form.submit() }}
-      </form>
     </div>
-  </body>
-</html>
+    {%- with messages = get_flashed_messages(with_categories=True) %} {%- if
+    messages %}
+    <div class="row">
+      <div class="col-md-12">
+        {{utils.flashed_messages(messages)}}
+      </div>
+    </div>
+    {%- endif %} {%- endwith %}
+    <form method="POST" action="/">
+      <p>Character Name: {{ game.player.name }}</p>
+      <p>Difficulty: {{ game.difficulty }}</p>
+
+      <h2>Skill Points</h2>
+      <p>Pilot points: {{ game.player.pilot }}</p>
+      <p>Merchant points : {{ game.player.merchant }}</p>
+      <p>Fighter points : {{ game.player.fighter }}</p>
+      <p>Engineer points : {{ game.player.engineer }}</p>
+      <p>Current Region: {{ game.curr_region }}</p>
+    </form>
+    <form method="POST" action="/regions">
+      {{ html_form.submit() }}
+    </form>
+  </div>
+</div>
+{%- endblock %}

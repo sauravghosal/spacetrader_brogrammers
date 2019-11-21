@@ -1,18 +1,19 @@
 """ This file contains the page redirection and some of the back-end logic for our game! """
 
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_bootstrap import Bootstrap  #not needed anymore.. but may be good to keep for later!
 from Game import HomePageForm, Game, SubmitForm
 from Player import Player, PlayerForm
 from Universe import UniverseForm
 from NPC import NPCForm
-from BanditInteraction import BanditInteraction
-from PoliceInteraction import PoliceInteraction
-from TraderInteraction import TraderInteraction, Negotiate
+from Bandit import Bandit
+from Police import Police
+from Trader import Trader
 
 APP = Flask(__name__)
 Bootstrap(APP)
 APP.config['WTF_CSRF_ENABLED'] = False
+APP.config['SECRET_KEY'] = '3d6f45a5fc12445dbac2f59c3b6c7cb1'
 
 # Game object - everything is in this object
 GAME = Game()
@@ -22,10 +23,10 @@ GAME = Game()
 def home():
     """ Displays home page with button to begin the Game """
 
-    fl_form = HomePageForm()
-    if fl_form.validate_on_submit():
+    form = HomePageForm()
+    if form.validate_on_submit():
         return redirect(url_for('character'))
-    return render_template('home.html', html_form=fl_form)
+    return render_template('index.html', form=form)
 
 
 @APP.route('/character', methods=['GET', 'POST'])
@@ -51,11 +52,11 @@ def character():
             if GAME.player.checkPoints():
                 return redirect(url_for('hub'))
             else:
+                flash(u'Something went wrong. Please try again.', 'error')
                 return render_template(
                     'character.html',
                     html_form=fl_form,
-                    html_message=
-                    'Something is wrong with your entry. Please try again.')
+                )
     else:
         return render_template('character.html',
                                html_form=fl_form,
@@ -65,7 +66,8 @@ def character():
 @APP.route('/hub', methods=['GET', 'POST'])
 def hub():
     """ Displays character information with button to travel to another region """
-
+    if (GAME.player.ship.health <= 0):
+        return redirect(url_for('end'))
     fl_form = UniverseForm()
     if fl_form.validate_on_submit():
         return redirect(url_for('regions'))
@@ -76,7 +78,10 @@ def hub():
 def regions():
     """ Displays a page containing all the regions """
     if request.method == 'POST' and request.form.get('refuel') is not None:
-        GAME.refuel()
+        if GAME.refuel():
+            flash(u"Refueled up to 100", 'success')
+        else:
+            flash(u"Not enough credits to purchase fuel", 'error')
     if request.method == 'POST' and request.form.get('regions') is not None:
         new_region_index = request.form.get('regions')
         new_region = GAME.universe.find_region(int(new_region_index))
@@ -87,22 +92,19 @@ def regions():
                     url_for('encounter', region_index=new_region_index))
             return redirect(url_for('hub'))
         else:
-            return render_template(
-                'regions.html',
-                game=GAME,
-                error="You don't have enough fuel to travel!")
+            flash(u"You dont have enough fuel to travel!", 'error')
     elif request.method == 'POST' and request.form.get('market') is not None:
         item_key = request.form.get('market')
-        if not GAME.buy(item_key):
-            return render_template(
-                'regions.html',
-                game=GAME,
-                error="You don't have enough inventory to hold that shit.")
+        if GAME.buy(item_key):
+            flash(u"Item bought!", 'success')
+        else:
+            flash(u"You don't have enough inventory to hold that shit.",
+                  'error')
     elif request.method == 'POST' and request.form.get(
             'inventory') is not None:
         item_key = request.form.get('inventory')
         GAME.loseItem(item_key)
-    return render_template('regions.html', game=GAME, error="None")
+    return render_template('market.html', game=GAME)
 
 
 @APP.route('/encounter', methods=['GET', 'POST'])
@@ -112,16 +114,11 @@ def encounter():
     region = GAME.universe.find_region(region_index)
     if request.method == 'POST' and request.form.get('options') is not None:
         option = request.form.get('options')
-        if GAME.npc.name == 'Trader':
-            result = TraderInteraction(GAME, option)
-            if result[0] == 'Not able to Negotiate':
-                return redirect(url_for("trader"))
-        elif GAME.npc.name == 'Police':
-            result = PoliceInteraction(GAME, option)
-        else:
-            result = BanditInteraction(GAME, option)
-        if result[1]:
-            GAME.curr_region = region
+        result = GAME.npc.Interaction(GAME, option)
+        # this might be better changed....
+        if result[0] == 'Not able to Negotiate':
+            return redirect(url_for("trader"))
+        GAME.curr_region = region
         return redirect(url_for('result', result=result[0]))
     else:
         return render_template('encounter.html', game=GAME)
@@ -143,10 +140,18 @@ def result():
 def trader():
     if request.method == 'POST' and request.form.get('options') is not None:
         options = request.form.get('options')
-        result = Negotiate(GAME, options)
+        result = GAME.npc.Negotiate(GAME, options)
         return redirect(url_for('result', result=result))
     else:
         return render_template('trader.html', game=GAME)
+
+
+@APP.route('/end', methods=['GET', 'POST'])
+def end():
+    form = HomePageForm()
+    if form.validate_on_submit():
+        return redirect(url_for('character'))
+    return render_template('end.html', form=form)
 
 
 if __name__ == '__main__':

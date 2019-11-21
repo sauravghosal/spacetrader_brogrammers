@@ -128,7 +128,7 @@ class Game:
             if self.difficulty == "Hard":
                 chance = random.randint(3, 6)
                 if chance > 3:
-                    randAttacker = random.randint(0, 1)
+                    randAttacker = 0
                     if randAttacker == 0:
                         if len(self.player.ship.inventory) > 0:
                             self.npc = Police()
