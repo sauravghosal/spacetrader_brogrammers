@@ -8,7 +8,7 @@ import TechLevel
 class Universe():  #params list of Regions
     #Universe is a list of regions
 
-    def __init__(self, region_names, regions):
+    def __init__(self, region_names, regions, price):
         self.region_names = region_names
         coords_list = []
         self.regions = regions
@@ -21,6 +21,7 @@ class Universe():  #params list of Regions
             tech_level = TechLevel.TechLevel(random.randint(0, 6))
             regions.append(
                 Region(coords[0], coords[1], tech_level, region_names[i], i))
+        self.pick_random_region().market['universe'] = price * 1.25
 
     def pick_random_region(self):
         return self.regions[random.randint(0, 9)]
@@ -28,7 +29,6 @@ class Universe():  #params list of Regions
     def find_region(self, index):
         return self.regions[index]
 
-    # Prints all regions inside universe
     def __str__(self):
         ans = ""
         for i in range(0, len(self.regions)):
