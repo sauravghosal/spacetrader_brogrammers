@@ -16,7 +16,7 @@ class Trader(NPC):
         self.optionsNoNegotiate = ["Buy at higher price", "Ignore", "Rob"]
         self.market = Region.marketplace.get(region.tech_level)
         self.itemKey = random.choice(list(self.market.keys()))
-        while self.itemKey != 'universe':
+        while self.itemKey == 'universe':
             self.itemKey = random.choice(list(self.market.keys()))
         self.itemValue = self.market.get(self.itemKey)
         self.img = "static/trader.jpg"
@@ -28,7 +28,7 @@ class Trader(NPC):
         offeredCost = self.itemValue
         if option == 'Buy Items':
             if game.player.credits >= offeredCost:
-                game.buy(offeredItem)
+                game.buy(offeredItem, offeredCost)
                 result = "You bought the trader's item!"
             else:
                 result = "You don't have enough money to buy the item!"
@@ -55,7 +55,7 @@ class Trader(NPC):
         offeredCost = self.itemValue
         result = ''
         if negotiateOption == 'Buy at higher price':
-            game.buy(offeredItem)
+            game.buy(offeredItem, offeredCost)
             game.player.credits -= 2 * offeredCost
             result = "You bought the item at an increased price!"
         elif negotiateOption == 'Ignore':
