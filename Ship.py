@@ -10,7 +10,7 @@ class Ship:
     def __init__(self):
         self.type = random.randint(0, len(self.names))
         self.cargo_space = 5
-        self.fuel_capacity = 100
-        self.current_fuel = self.fuel_capacity
+        self.FUEL_CAPACITY = 100
+        self.current_fuel = self.FUEL_CAPACITY
         self.health = 100
         self.inventory = []

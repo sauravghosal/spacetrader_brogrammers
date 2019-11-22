@@ -20,7 +20,7 @@ class Region:
         self.market = self.marketplace.get(tech_level)
 
     def __str__(self):
-        return f'Name: {self.name}, Location: ({self.x_coord}, {self.y_coord}), tech_level: {self.tech_level}'
+        return f'Name: {self.name}, Location: ({self.x_coord}, {self.y_coord}), {self.tech_level}'
 
     def getMarketPlace(self):
         return self.marketplace

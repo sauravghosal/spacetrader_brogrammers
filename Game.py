@@ -10,13 +10,6 @@ from Trader import Trader
 from Police import Police
 import random
 
-# Create a bandit page
-# Create bandit form
-# Randomize encounter chance while hitting travel
-# Conditional redirection
-# Fighting off the police
-# Rob the trader
-
 
 class Game:
     """ The game class containing Player, Difficulty, Universe, and Current Region """
@@ -35,7 +28,8 @@ class Game:
         self.difficulty = difficulty
         self.player = player
         self.universe = Universe(
-            ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'], [])
+            ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'], [],
+            self.player.credits)
         self.curr_region = self.universe.pick_random_region()
         self.npc = None
 
@@ -89,6 +83,15 @@ class Game:
             return True
         else:
             return False
+
+    def repair(self):
+        repairs = 100 - self.player.ship.health
+        cost = repairs / 3 - self.player.engineer
+        if cost <= self.player.credits:
+            self.player.ship.health = 100
+            self.player.credits -= cost
+            return True
+        return False
 
     def loseAllCredits(self):
         self.player.credits = 0

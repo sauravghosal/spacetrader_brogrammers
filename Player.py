@@ -17,12 +17,11 @@ class Player:
         self.engineer = engineer
         self.credits = credits
         self.name = name
+        self.karma = 50
         self.ship = Ship()
 
     def checkPoints(self):
         return self.pilot + self.merchant + self.fighter + self.engineer <= self.skill_level
-
-    # Setting the current Region (travel feature) - can just do p1.current_region = {new region}
 
 
 # Form class

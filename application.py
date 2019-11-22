@@ -82,6 +82,11 @@ def regions():
             flash(u"Refueled up to 100", 'success')
         else:
             flash(u"Not enough credits to purchase fuel", 'error')
+    if request.method == 'POST' and request.form.get('repair'):
+        if GAME.repair():
+            flash(u"Repaired up to 100", 'success')
+        else:
+            flash(u"Not enough credits to repair", 'error')
     if request.method == 'POST' and request.form.get('regions') is not None:
         new_region_index = request.form.get('regions')
         new_region = GAME.universe.find_region(int(new_region_index))
