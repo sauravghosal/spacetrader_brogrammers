@@ -5,7 +5,7 @@ from TechLevel import TechLevel
 
 
 class Trader(NPC):
-    def __init__(self):
+    def __init__(self, region):
         self.name = "Trader"
         self.options = [
             "Continue to Region",
@@ -14,8 +14,10 @@ class Trader(NPC):
             "Negotiate",
         ]
         self.optionsNoNegotiate = ["Buy at higher price", "Ignore", "Rob"]
-        self.market = Region.marketplace.get(TechLevel(random.randint(0, 6)))
+        self.market = Region.marketplace.get(region.tech_level)
         self.itemKey = random.choice(list(self.market.keys()))
+        while self.itemKey != 'universe':
+            self.itemKey = random.choice(list(self.market.keys()))
         self.itemValue = self.market.get(self.itemKey)
         self.img = "static/trader.jpg"
 
