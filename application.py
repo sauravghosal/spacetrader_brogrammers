@@ -76,7 +76,6 @@ def hub():
 
 @APP.route('/regions', methods=['GET', 'POST'])
 def regions():
-    """ Displays a page containing all the regions """
     if request.method == 'POST' and request.form.get('refuel') is not None:
         if GAME.refuel():
             flash(u"Refueled up to 100", 'success')
@@ -95,12 +94,17 @@ def regions():
             if GAME.npc != None:
                 return redirect(
                     url_for('encounter', region_index=new_region_index))
+            GAME.curr_region = new_region
             return redirect(url_for('hub'))
         else:
             flash(u"You can't travel there!", 'error')
     elif request.method == 'POST' and request.form.get('market') is not None:
         item_key = request.form.get('market')
-        if GAME.buy(item_key):
+        base_price = GAME.curr_region.market.get(item_key)
+        buying_price = base_price - GAME.player.merchant * 0.25
+        if buying_price <= 0:
+            buying_price = 0
+        if GAME.buy(item_key, buying_price):
             if item_key == 'universe':
                 return render_template('win.html')
             flash(u"Item bought!", 'success')
@@ -121,10 +125,10 @@ def encounter():
     if request.method == 'POST' and request.form.get('options') is not None:
         option = request.form.get('options')
         result = GAME.npc.Interaction(GAME, option)
-        # this might be better changed....
         if result[0] == 'Not able to Negotiate':
             return redirect(url_for("trader"))
-        GAME.curr_region = region
+        if result[1]:
+            GAME.curr_region = region
         return redirect(url_for('result', result=result[0]))
     else:
         return render_template('encounter.html', game=GAME)

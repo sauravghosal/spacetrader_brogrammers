@@ -44,16 +44,13 @@ class Game:
             if self.player.ship.current_fuel >= fuel_cost:
                 self.player.ship.current_fuel -= fuel_cost
                 return True
+            return False
         return False
 
-    def buy(self, item_key):
-        base_price = self.curr_region.market.get(item_key)
-        buying_price = base_price - self.player.merchant * 0.25
-        if buying_price <= 0:
-            buying_price = 0
-        if self.player.credits >= buying_price and len(
+    def buy(self, item_key, value):
+        if self.player.credits >= value and len(
                 self.player.ship.inventory) < self.player.ship.cargo_space:
-            self.player.credits -= buying_price
+            self.player.credits -= value
             self.player.ship.inventory.append(item_key)
             return True
         else:
@@ -114,7 +111,7 @@ class Game:
                     else:
                         self.npc = Bandit(self.difficulty)
                 else:
-                    self.npc = Trader()
+                    self.npc = Trader(self.curr_region)
             if self.difficulty == "Medium":
                 chance = random.randint(1, 6)
                 if chance > 1 and chance < 4:
@@ -127,7 +124,7 @@ class Game:
                     else:
                         self.npc = Bandit(self.difficulty)
                 else:
-                    self.npc = Trader()
+                    self.npc = Trader(self.curr_region)
             if self.difficulty == "Hard":
                 chance = random.randint(3, 6)
                 if chance > 3:
@@ -140,7 +137,7 @@ class Game:
                     else:
                         self.npc = Bandit(self.difficulty)
                 else:
-                    self.npc = Trader()
+                    self.npc = Trader(self.curr_region)
         else:
             self.npc = None
 

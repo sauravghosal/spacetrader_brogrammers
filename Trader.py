@@ -5,7 +5,7 @@ import math
 from TechLevel import TechLevel
 
 class Trader(NPC):
-    def __init__(self):
+    def __init__(self, region):
         self.name = "Trader"
         self.options = [
             "Continue to Region",
@@ -14,8 +14,10 @@ class Trader(NPC):
             "Negotiate",
         ]
         self.optionsNoNegotiate = ["Buy at higher price", "Ignore", "Rob"]
-        self.market = Region.marketplace.get(TechLevel(random.randint(0, 6)))
+        self.market = Region.marketplace.get(region.tech_level)
         self.itemKey = random.choice(list(self.market.keys()))
+        while self.itemKey == 'universe':
+            self.itemKey = random.choice(list(self.market.keys()))
         self.itemValue = self.market.get(self.itemKey)
         self.img = "static/trader.jpg"
 
@@ -30,6 +32,7 @@ class Trader(NPC):
             if game.player.credits >= self.itemValue:
                 game.buy(self.itemKey, self.itemValue)
                 game.player.addKarma(5)
+
                 result = "You bought the trader's item!"
 
             else:
@@ -60,7 +63,11 @@ class Trader(NPC):
         offeredCost = self.itemValue
         result = ''
         if negotiateOption == 'Buy at higher price':
+<<<<<<< HEAD
             game.buy(self.itemKey)
+=======
+            game.buy(offeredItem, offeredCost)
+>>>>>>> c8973571dcce0cee6027d660314dc637f95a7630
             game.player.credits -= 2 * offeredCost
             result = "You bought the item at an increased price!"
         elif negotiateOption == 'Ignore':
