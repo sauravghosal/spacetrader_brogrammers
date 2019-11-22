@@ -24,18 +24,18 @@ class Player:
         return self.pilot + self.merchant + self.fighter + self.engineer <= self.skill_level
 
     def getKarma(self):
-        return karma
+        return self.karma
     
     def addKarma(self, amount):
-        if self.karma == 100 or self.karma + amount == 100
+        if self.karma == 100 or self.karma + amount == 100:
             self.karma = 100
-        else
+        else:
             self.karma = self.karma + amount
 
     def loseKarma(self, amount):
-        if self.karma == 0 or self - amount == 0
+        if self.karma == 0 or self.karma - amount == 0:
             self.karma = 0
-        else
+        else:
             self.karma = self.karma - amount
 
 

@@ -20,8 +20,8 @@ class Police(NPC):
                 game.loseRandomItem()
                 game.player.ship.health -= 100
                 if game.player.getKarma < 50:
-                    game.loseMoney(10 + 50 - game.player.getKarma)
-                else
+                    game.loseMoney(10 + 50 - game.player.getKarma())
+                else:
                     game.loseMoney(10)
                 traveled = False
                 result = "You lost the item, damaged ship health, and lost credits!"
@@ -36,8 +36,8 @@ class Police(NPC):
                 game.loseCredits()
                 game.player.ship.health -= 100
                 if game.player.getKarma < 50:
-                    game.loseMoney(10 + 50 - game.player.getKarma)
-                else
+                    game.loseMoney(10 + 50 - game.player.getKarma())
+                else:
                     game.loseMoney(10)
                 traveled = False
                 result = "You lost all your items, your ship took damage, and you lost credits!"

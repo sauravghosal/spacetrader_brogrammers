@@ -25,9 +25,9 @@ class Trader(NPC):
         traveled = True
         result = ""
         offeredItem = self.itemKey
-        if game.player.getKarma > 50:
+        if game.player.getKarma() > 50:
             offeredCost = self.itemValue - math.floor(game.player.getKarma / 10)
-        else
+        else:
             offeredCost = self.itemValue
         if option == 'Buy Items':
             if game.player.credits >= offeredCost:
