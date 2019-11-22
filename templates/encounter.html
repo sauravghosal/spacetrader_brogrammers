@@ -31,7 +31,8 @@
           <br />
           {% endfor %}
           {% if game.npc.name == 'Trader' %}
-          <h1>Item Offered: {{ game.npc.itemKey }}</h1>
+          <p>Item Offered: {{ game.npc.itemKey }}</p>
+          <p>Price: {{ game.npc.itemValue }}</p>
           {% endif %}
           <input type="submit" value="Select" title="let's go!"></input>
         </ul>

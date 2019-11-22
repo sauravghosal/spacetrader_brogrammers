@@ -37,7 +37,6 @@ class Game:
         distance = (
             (self.curr_region.x_coord - region.x_coord)**2 +
             (self.curr_region.y_coord - region.y_coord)**2)**(1 / 2) / 10
-        print(distance)
         if distance != 0:
             fuel_cost = distance - self.player.pilot
             if fuel_cost < 0:
@@ -45,19 +44,13 @@ class Game:
             if self.player.ship.current_fuel >= fuel_cost:
                 self.player.ship.current_fuel -= fuel_cost
                 return True
-            print(fuel_cost)
-            print(self.player.ship.current_fuel)
             return False
         return False
 
-    def buy(self, item_key):
-        base_price = self.curr_region.market.get(item_key)
-        buying_price = base_price - self.player.merchant * 0.25
-        if buying_price <= 0:
-            buying_price = 0
-        if self.player.credits >= buying_price and len(
+    def buy(self, item_key, value):
+        if self.player.credits >= value and len(
                 self.player.ship.inventory) < self.player.ship.cargo_space:
-            self.player.credits -= buying_price
+            self.player.credits -= value
             self.player.ship.inventory.append(item_key)
             return True
         else:

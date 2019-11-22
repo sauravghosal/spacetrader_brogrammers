@@ -100,7 +100,11 @@ def regions():
             flash(u"You can't travel there!", 'error')
     elif request.method == 'POST' and request.form.get('market') is not None:
         item_key = request.form.get('market')
-        if GAME.buy(item_key):
+        base_price = GAME.curr_region.market.get(item_key)
+        buying_price = base_price - GAME.player.merchant * 0.25
+        if buying_price <= 0:
+            buying_price = 0
+        if GAME.buy(item_key, buying_price):
             if item_key == 'universe':
                 return render_template('win.html')
             flash(u"Item bought!", 'success')
