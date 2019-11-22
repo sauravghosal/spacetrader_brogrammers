@@ -37,14 +37,14 @@ class Game:
         distance = (
             (self.curr_region.x_coord - region.x_coord)**2 +
             (self.curr_region.y_coord - region.y_coord)**2)**(1 / 2) / 10
-        fuel_cost = distance - self.player.pilot
-        if fuel_cost < 0:
-            fuel_cost = 0
-        if self.player.ship.current_fuel >= fuel_cost:
-            self.player.ship.current_fuel -= fuel_cost
-            return True
-        else:
-            return False
+        if distance != 0:
+            fuel_cost = distance - self.player.pilot
+            if fuel_cost < 0:
+                fuel_cost = 0
+            if self.player.ship.current_fuel >= fuel_cost:
+                self.player.ship.current_fuel -= fuel_cost
+                return True
+        return False
 
     def buy(self, item_key):
         base_price = self.curr_region.market.get(item_key)
@@ -114,7 +114,7 @@ class Game:
                     else:
                         self.npc = Bandit(self.difficulty)
                 else:
-                    self.npc = Trader(self.curr_region)
+                    self.npc = Trader()
             if self.difficulty == "Medium":
                 chance = random.randint(1, 6)
                 if chance > 1 and chance < 4:
@@ -127,7 +127,7 @@ class Game:
                     else:
                         self.npc = Bandit(self.difficulty)
                 else:
-                    self.npc = Trader(self.curr_region)
+                    self.npc = Trader()
             if self.difficulty == "Hard":
                 chance = random.randint(3, 6)
                 if chance > 3:
@@ -140,7 +140,7 @@ class Game:
                     else:
                         self.npc = Bandit(self.difficulty)
                 else:
-                    self.npc = Trader(self.curr_region)
+                    self.npc = Trader()
         else:
             self.npc = None
 

@@ -97,14 +97,15 @@ def regions():
                     url_for('encounter', region_index=new_region_index))
             return redirect(url_for('hub'))
         else:
-            flash(u"You dont have enough fuel to travel!", 'error')
+            flash(u"You can't travel there!", 'error')
     elif request.method == 'POST' and request.form.get('market') is not None:
         item_key = request.form.get('market')
         if GAME.buy(item_key):
+            if item_key == 'universe':
+                return render_template('win.html')
             flash(u"Item bought!", 'success')
         else:
-            flash(u"You don't have enough inventory to hold that shit.",
-                  'error')
+            flash(u"You don't have enough inventory to hold that.", 'error')
     elif request.method == 'POST' and request.form.get(
             'inventory') is not None:
         item_key = request.form.get('inventory')

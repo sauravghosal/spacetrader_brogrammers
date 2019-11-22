@@ -28,7 +28,7 @@ title %}Character Information{% endblock %} {% block content %}
               region
             }}
             --- DISTANCE TO REGION:
-            {{ (((game.curr_region.x_coord - region.x_coord) ** 2 + (game.curr_region.y_coord - region.y_coord) ** 2) ** 0.5) |round(3) }}
+            {{ (((game.curr_region.x_coord - region.x_coord) ** 2 + (game.curr_region.y_coord - region.y_coord) ** 2) ** 0.5) / 10  - game.player.pilot |round(3) }}
             <br />
             {% endfor %}
             <input type="submit" value="Travel"></input>
