@@ -1,6 +1,8 @@
 from NPC import NPC
 import random
 from Region import Region
+import math
+
 
 
 class Trader(NPC):
@@ -22,11 +24,16 @@ class Trader(NPC):
         traveled = True
         result = ""
         offeredItem = self.itemKey
-        offeredCost = self.itemValue
+        if game.player.getKarma > 50:
+            offeredCost = self.itemValue - math.floor(game.player.getKarma / 10)
+        else
+            offeredCost = self.itemValue
         if option == 'Buy Items':
             if game.player.credits >= offeredCost:
                 game.buy(offeredItem)
+                game.player.addKarma(5)
                 result = "You bought the trader's item!"
+
             else:
                 result = "You don't have enough money to buy the item!"
         elif option == 'Continue to Region':
@@ -35,9 +42,12 @@ class Trader(NPC):
             if game.player.fighter >= random.randint(0, 16):
                 game.player.ship.inventory.append(offeredItem)
                 result = "You robbed the trader! Press button to continue to next region"
+                game.player.loseKarma(10)
             else:
                 game.player.ship.health -= 10
                 result = "You failed to rob the trader, so your ship took damage!"
+                game.player.loseKarma(10)
+
         elif option == 'Negotiate':
             if game.player.merchant >= random.randint(0, 16):
                 game.buy(offeredItem)
@@ -61,7 +71,9 @@ class Trader(NPC):
             if game.player.fighter >= random.randint(0, 16):
                 game.player.ship.inventory.append(offeredItem)
                 result = "You successfully robbed the trader!"
+                game.player.loseKarma(10)
             else:
                 game.player.ship.health -= 10
                 result = "You failed to rob the trader, so your ship took damage!"
+                game.player.loseKarma(10)
         return result

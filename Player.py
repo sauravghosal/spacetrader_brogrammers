@@ -23,6 +23,21 @@ class Player:
     def checkPoints(self):
         return self.pilot + self.merchant + self.fighter + self.engineer <= self.skill_level
 
+    def getKarma(self):
+        return karma
+    
+    def addKarma(self, amount):
+        if self.karma == 100 or self.karma + amount == 100
+            self.karma = 100
+        else
+            self.karma = self.karma + amount
+
+    def loseKarma(self, amount):
+        if self.karma == 0 or self - amount == 0
+            self.karma = 0
+        else
+            self.karma = self.karma - amount
+
 
 # Form class
 class PlayerForm(FlaskForm):

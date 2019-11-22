@@ -15,6 +15,8 @@ class Bandit(NPC):
     def Interaction(self, game, option):
         result = ""
         traveled = True
+        if game.player.getKarma < 50:
+            self.demand += 50 - game.player.getKarma
         if option == 'Pay the Demand':
             if game.player.credits <= self.demand:
                 if len(game.player.ship.inventory) != 0:
@@ -35,6 +37,7 @@ class Bandit(NPC):
                 result = "You successfully fled back to the previous region!"
                 traveled = False
         else:
+            game.player.loseKarma(10)
             if game.player.fighter >= random.randint(0, 16):
                 game.player.credits += 100
                 result = "You stole credits from the Bandit!"
