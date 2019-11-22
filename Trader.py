@@ -63,11 +63,7 @@ class Trader(NPC):
         offeredCost = self.itemValue
         result = ''
         if negotiateOption == 'Buy at higher price':
-<<<<<<< HEAD
-            game.buy(self.itemKey)
-=======
             game.buy(offeredItem, offeredCost)
->>>>>>> c8973571dcce0cee6027d660314dc637f95a7630
             game.player.credits -= 2 * offeredCost
             result = "You bought the item at an increased price!"
         elif negotiateOption == 'Ignore':
