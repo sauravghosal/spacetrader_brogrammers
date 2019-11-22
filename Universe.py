@@ -21,7 +21,7 @@ class Universe():  #params list of Regions
             tech_level = TechLevel.TechLevel(random.randint(0, 6))
             regions.append(
                 Region(coords[0], coords[1], tech_level, region_names[i], i))
-        self.pick_random_region().market['universe'] = price * 1.25
+        self.pick_random_region().market['universe'] = price * 0.75
 
     def pick_random_region(self):
         return self.regions[random.randint(0, 9)]
