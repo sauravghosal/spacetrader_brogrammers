@@ -4,6 +4,7 @@ from Region import Region
 import math
 from TechLevel import TechLevel
 
+
 class Trader(NPC):
     def __init__(self, region):
         self.name = "Trader"
@@ -25,16 +26,15 @@ class Trader(NPC):
         traveled = True
         result = ""
         if game.player.getKarma() > 50:
-            self.itemValue = self.itemValue - math.floor(game.player.getKarma / 10)
+            self.itemValue = self.itemValue - math.floor(
+                game.player.getKarma / 10)
         else:
             self.itemValue = self.itemValue
         if option == 'Buy Items':
             if game.player.credits >= self.itemValue:
                 game.buy(self.itemKey, self.itemValue)
                 game.player.addKarma(5)
-
                 result = "You bought the trader's item!"
-
             else:
                 result = "You don't have enough money to buy the item!"
         elif option == 'Continue to Region':
@@ -60,11 +60,10 @@ class Trader(NPC):
 
     def Negotiate(self, game, negotiateOption):
         self.itemKey = self.itemKey
-        offeredCost = self.itemValue
         result = ''
         if negotiateOption == 'Buy at higher price':
-            game.buy(offeredItem, offeredCost)
-            game.player.credits -= 2 * offeredCost
+            game.buy(self.itemKey, self.itemValue)
+            game.player.credits -= 2 * self.itemValue
             result = "You bought the item at an increased price!"
         elif negotiateOption == 'Ignore':
             result = "You ignored the trader! Press button to continue to next region!"

@@ -1,9 +1,9 @@
 {%- extends "base.html" %} {% import "bootstrap/utils.html" as utils %} {% block
-title %}Character Information{% endblock %} {% block content %}
+title %}Marketplace{% endblock %} {% block content %}
 <div class="container">
   <div class="container">
     <div class="page-header">
-      <h1>Player Information</h1>
+      <h1>Marketplace</h1>
     </div>
     {%- with messages = get_flashed_messages(with_categories=True) %} {%- if
     messages %}
@@ -14,26 +14,6 @@ title %}Character Information{% endblock %} {% block content %}
     </div>
     {%- endif %} {%- endwith %}
       <div class="container">
-        <h1>Potential Regions</h1>
-        <h3>Current Region --- {{ game.curr_region }}</h3>
-        <form method="POST">
-          <ul>
-            {% for region in game.universe.regions %}
-            <input
-              type="radio"
-              name="regions"
-              value="{{region.number}}"
-            />
-            {{
-              region
-            }}
-            --- DISTANCE TO REGION:
-            {{ (((game.curr_region.x_coord - region.x_coord) ** 2 + (game.curr_region.y_coord - region.y_coord) ** 2) ** 0.5) / 10  - game.player.pilot |round(3) }}
-            <br />
-            {% endfor %}
-            <input type="submit" value="Travel"></input>
-          </ul>
-        </form>
         <form method="POST">
         <input type="submit" name="refuel" value="refuel"></input>
         </form>
@@ -45,26 +25,51 @@ title %}Character Information{% endblock %} {% block content %}
       <h3> Current Credits: {{ game.player.credits }} </h3>  
       <h3> Ship Health: {{ game.player.ship.health }} </h3>
       <h3> Karma : {{game.player.getKarma()}}</h3>
-      <form method="POST">
-        <ul>
-          {% for key in game.curr_region.market.keys() %}
-          <input
-            type="radio"
-            name="market"
-            value="{{key}}"
-          />
-          {{
-            key
-          }} | 
-          price: {{ game.curr_region.market.get(key) }}
-          <br />
-          {% endfor %}
-          <input type="submit" value="Buy"></input>
-        </ul>
-      </form>
-  
+      <div class="items">
+        <div class="travel">
+            <h1>Regions</h1>
+            <h3>Current Region {{ game.curr_region }}</h3>
+            <form method="POST">
+              <ul>
+                {% for region in game.universe.regions %}
+                <input
+                  type="radio"
+                  name="regions"
+                  value="{{region.number}}"
+                />
+                {{
+                  region
+                }}
+                --- Cost to Travel:
+                {{ game.calculate_travel_cost(region) }}
+                <br />
+                {% endfor %}
+                <input type="submit" value="Travel"></input>
+              </ul>
+            </form>
+          </div>
+        <div class="market">
+        <form method="POST">
+          <ul>
+            {% for key in game.curr_region.market.keys() %}
+            <input
+              type="radio"
+              name="market"
+              value="{{key}}"
+            />
+            {{
+              key
+            }} | 
+            price: {{ game.curr_region.market.get(key) }}
+            <br />
+            {% endfor %}
+            <input type="submit" value="Buy"></input>
+          </ul>
+        </form>
+      </div>
+    </div>
       <h3> Current Inventory: </h3>
-  
+    <div class="inventory">
       <form method="POST">
         <ul>
           {% for item in game.player.ship.inventory %}
@@ -79,6 +84,7 @@ title %}Character Information{% endblock %} {% block content %}
           <input type="submit" value="Sell"></input>
         </ul>
       </form>
+      </div>
     </div>
   </div>
 </div>

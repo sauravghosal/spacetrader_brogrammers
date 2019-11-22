@@ -33,12 +33,18 @@ class Game:
         self.curr_region = self.universe.pick_random_region()
         self.npc = None
 
+    def calculate_travel_cost(self, region):
+        cost = round(
+            ((self.curr_region.x_coord - region.x_coord)**2 +
+             (self.curr_region.y_coord - region.y_coord)**2)**(1 / 2) / 10)
+        if cost < 0:
+            cost = 0
+        return cost
+
     def travel(self, region):
-        distance = (
-            (self.curr_region.x_coord - region.x_coord)**2 +
-            (self.curr_region.y_coord - region.y_coord)**2)**(1 / 2) / 10
-        if distance != 0:
-            fuel_cost = distance - self.player.pilot
+        cost = self.calculate_travel_cost(region)
+        if cost != 0:
+            fuel_cost = cost - self.player.pilot
             if fuel_cost < 0:
                 fuel_cost = 0
             if self.player.ship.current_fuel >= fuel_cost:

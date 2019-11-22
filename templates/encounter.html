@@ -34,6 +34,10 @@
           <h1>Item Offered: {{ game.npc.itemKey }}</h1>
           <h1>Item Price: {{ game.npc.itemValue }}</h1>
           {% endif %}
+
+          {% if game.npc.name == 'Bandit' %}
+          <h1> Credits demanded: {{ game.npc.demand }} </h1>
+          {% endif %}
           <input type="submit" value="Select" title="let's go!"></input>
         </ul>
       </form>
