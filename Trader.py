@@ -24,14 +24,13 @@ class Trader(NPC):
     def Interaction(self, game, option):
         traveled = True
         result = ""
-        offeredItem = self.itemKey
         if game.player.getKarma() > 50:
-            offeredCost = self.itemValue - math.floor(game.player.getKarma / 10)
+            self.itemValue = self.itemValue - math.floor(game.player.getKarma / 10)
         else:
-            offeredCost = self.itemValue
+            self.itemValue = self.itemValue
         if option == 'Buy Items':
-            if game.player.credits >= offeredCost:
-                game.buy(offeredItem, offeredCost)
+            if game.player.credits >= self.itemValue:
+                game.buy(self.itemKey, self.itemValue)
                 game.player.addKarma(5)
 
                 result = "You bought the trader's item!"
@@ -42,7 +41,7 @@ class Trader(NPC):
             result = "You ignored the trader! Press button to continue to next region!"
         elif option == 'Rob Them >:)':
             if game.player.fighter >= random.randint(0, 16):
-                game.player.ship.inventory.append(offeredItem)
+                game.player.ship.inventory.append(self.itemKey)
                 result = "You robbed the trader! Press button to continue to next region"
                 game.player.loseKarma(10)
             else:
@@ -52,15 +51,15 @@ class Trader(NPC):
 
         elif option == 'Negotiate':
             if game.player.merchant >= random.randint(0, 16):
-                game.buy(offeredItem)
-                game.player.credits += offeredCost / 2
+                game.buy(self.itemKey, self.itemValue)
+                game.player.credits += self.itemValue / 2
                 result = "You successfully negotiated and bought the item at a reduced price!"
             else:
                 result = "Not able to Negotiate"
         return [result, traveled]
 
     def Negotiate(self, game, negotiateOption):
-        offeredItem = self.itemKey
+        self.itemKey = self.itemKey
         offeredCost = self.itemValue
         result = ''
         if negotiateOption == 'Buy at higher price':
@@ -71,7 +70,7 @@ class Trader(NPC):
             result = "You ignored the trader! Press button to continue to next region!"
         elif negotiateOption == "Rob":
             if game.player.fighter >= random.randint(0, 16):
-                game.player.ship.inventory.append(offeredItem)
+                game.player.ship.inventory.append(self.itemKey)
                 result = "You successfully robbed the trader!"
                 game.player.loseKarma(10)
             else:
