@@ -25,7 +25,7 @@ class Trader(NPC):
         traveled = True
         result = ""
         if game.player.getKarma() > 50:
-            self.itemValue = self.itemValue - math.floor(game.player.getKarma / 10)
+            self.itemValue -= math.floor(game.player.getKarma() / 10)
         else:
             self.itemValue = self.itemValue
         if option == 'Buy Items':
