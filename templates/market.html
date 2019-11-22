@@ -44,6 +44,7 @@ title %}Character Information{% endblock %} {% block content %}
       <h3> Current Fuel: {{ game.player.ship.current_fuel }} </h3>  
       <h3> Current Credits: {{ game.player.credits }} </h3>  
       <h3> Ship Health: {{ game.player.ship.health }} </h3>
+      <h3> Karma : {{game.player.getKarma()}}</h3>
       <form method="POST">
         <ul>
           {% for key in game.curr_region.market.keys() %}

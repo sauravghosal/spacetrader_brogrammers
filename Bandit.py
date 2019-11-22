@@ -10,13 +10,13 @@ class Bandit(NPC):
         self.demand = random.randint(1, 5) * difficultyValues[difficulty]
         self.options = ["Flee", "Pay the Demand", "Fight!!!"]
         self.damage = difficultyValues.get(difficulty) / 10
-        self.img = "static/newbandit.jpg"
+        self.img = "static/bandit.jpg"
 
     def Interaction(self, game, option):
         result = ""
         traveled = True
-        if game.player.getKarma < 50:
-            self.demand += 50 - game.player.getKarma
+        if game.player.getKarma() < 50:
+            self.demand += 50 - game.player.getKarma()
         if option == 'Pay the Demand':
             if game.player.credits <= self.demand:
                 if len(game.player.ship.inventory) != 0:
