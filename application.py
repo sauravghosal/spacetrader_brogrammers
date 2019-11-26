@@ -105,11 +105,11 @@ def regions():
         if buying_price <= 0:
             buying_price = 0
         if GAME.buy(item_key, buying_price):
-            if item_key == 'universe':
+            if item_key == GAME.player.name + "'s universe":
                 return render_template('win.html')
             flash(u"Item bought!", 'success')
         else:
-            flash(u"You don't have enough inventory to hold that.", 'error')
+            flash(u"You can't buy that.", 'error')
     elif request.method == 'POST' and request.form.get(
             'inventory') is not None:
         item_key = request.form.get('inventory')

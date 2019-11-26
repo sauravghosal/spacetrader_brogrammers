@@ -29,7 +29,7 @@ class Game:
         self.player = player
         self.universe = Universe(
             ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'], [],
-            self.player.credits)
+            self.player)
         self.curr_region = self.universe.pick_random_region()
         self.npc = None
 

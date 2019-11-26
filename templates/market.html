@@ -14,78 +14,72 @@ title %}Marketplace{% endblock %} {% block content %}
     </div>
     {%- endif %} {%- endwith %}
       <div class="container">
-        <form method="POST">
-        <input type="submit" name="refuel" value="refuel"></input>
-        </form>
-        <form method="POST">
-          <input type="submit" name="repair" value="repair"></input>
+          <h1>Regions</h1>
+          <h3>Current Region {{ game.curr_region }}</h3>
+          <form method="POST">
+            <ul>
+              {% for region in game.universe.regions %}
+              <input
+                type="radio"
+                name="regions"
+                value="{{region.number}}"
+              />
+              {{
+                region
+              }}
+              --- Cost to Travel:
+              {{ game.calculate_travel_cost(region) }}
+              <br />
+              {% endfor %}
+              <input type="submit" value="Travel"></input>
+            </ul>
           </form>
-      </div>
-      <h3> Current Fuel: {{ game.player.ship.current_fuel }} </h3>  
-      <h3> Current Credits: {{ game.player.credits }} </h3>  
-      <h3> Ship Health: {{ game.player.ship.health }} </h3>
-      <h3> Karma : {{game.player.getKarma()}}</h3>
-      <div class="items">
-        <div class="travel">
-            <h1>Regions</h1>
-            <h3>Current Region {{ game.curr_region }}</h3>
-            <form method="POST">
+
+          <form method="POST">
+              <input type="submit" name="refuel" value="refuel"></input>
+              </form>
+          <form method="POST">
+              <input type="submit" name="repair" value="repair"></input>
+          </form>
+
+          <h3> Current Fuel: {{ game.player.ship.current_fuel }} </h3>  
+          <h3> Current Credits: {{ game.player.credits }} </h3>  
+          <h3> Ship Health: {{ game.player.ship.health }} </h3>
+          <h3> Karma : {{game.player.getKarma()}}</h3>
+
+          <form method="POST">
               <ul>
-                {% for region in game.universe.regions %}
+                {% for key in game.curr_region.market.keys() %}
                 <input
                   type="radio"
-                  name="regions"
-                  value="{{region.number}}"
+                  name="market"
+                  value="{{key}}"
                 />
                 {{
-                  region
-                }}
-                --- Cost to Travel:
-                {{ game.calculate_travel_cost(region) }}
+                  key
+                }} | 
+                price: {{ game.curr_region.market.get(key) }}
                 <br />
                 {% endfor %}
-                <input type="submit" value="Travel"></input>
+                <input type="submit" value="Buy"></input>
               </ul>
             </form>
-          </div>
-        <div class="market">
-        <form method="POST">
-          <ul>
-            {% for key in game.curr_region.market.keys() %}
-            <input
+          <h3> Current Inventory: </h3>
+          <form method="POST">
+            <ul>
+              {% for item in game.player.ship.inventory %}
+              <input
               type="radio"
-              name="market"
-              value="{{key}}"
-            />
-            {{
-              key
-            }} | 
-            price: {{ game.curr_region.market.get(key) }}
-            <br />
-            {% endfor %}
-            <input type="submit" value="Buy"></input>
-          </ul>
-        </form>
-      </div>
-    </div>
-      <h3> Current Inventory: </h3>
-    <div class="inventory">
-      <form method="POST">
-        <ul>
-          {% for item in game.player.ship.inventory %}
-          <input
-          type="radio"
-          name="inventory"
-          value="{{item}}">
-            {{ item }}
-          </input>
-          <br />
-          {% endfor %}
-          <input type="submit" value="Sell"></input>
-        </ul>
-      </form>
-      </div>
-    </div>
+              name="inventory"
+              value="{{item}}">
+                {{ item }}
+              </input>
+              <br />
+              {% endfor %}
+              <input type="submit" value="Sell"></input>
+            </ul>
+          </form>
+        </div>
   </div>
 </div>
 {%- endblock %}

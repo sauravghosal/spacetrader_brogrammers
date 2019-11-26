@@ -8,7 +8,7 @@ import TechLevel
 class Universe():  #params list of Regions
     #Universe is a list of regions
 
-    def __init__(self, region_names, regions, price):
+    def __init__(self, region_names, regions, player):
         self.region_names = region_names
         coords_list = []
         self.regions = regions
@@ -21,7 +21,8 @@ class Universe():  #params list of Regions
             tech_level = TechLevel.TechLevel(random.randint(0, 6))
             regions.append(
                 Region(coords[0], coords[1], tech_level, region_names[i], i))
-        self.pick_random_region().market['universe'] = price * 0.75
+        self.pick_random_region().market[player.name +
+                                         "'s universe"] = player.credits * 0.75
 
     def pick_random_region(self):
         return self.regions[random.randint(0, 9)]

@@ -1,7 +1,7 @@
-from NPC import NPC
 import random
-from Region import Region
 import math
+from NPC import NPC
+from Region import Region
 from TechLevel import TechLevel
 
 
@@ -26,12 +26,7 @@ class Trader(NPC):
         traveled = True
         result = ""
         if game.player.getKarma() > 50:
-<<<<<<< HEAD
-            self.itemValue = self.itemValue - math.floor(
-                game.player.getKarma / 10)
-=======
             self.itemValue -= math.floor(game.player.getKarma() / 10)
->>>>>>> 36d7b641dc624b194facf5bf240f5266c63f96da
         else:
             self.itemValue = self.itemValue
         if option == 'Buy Items':
