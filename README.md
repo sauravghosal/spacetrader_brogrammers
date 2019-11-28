@@ -5,7 +5,7 @@ If you run out of health on your ship, you **lose the game**, and are given the 
 # Starting the Game
 In order to start the game, install python flask with the following command:
 
-    pip install python-flask
+    pip install flask
 You're ready to begin the web app! From the project's root directory, simply type 
 
     python3 application.py
